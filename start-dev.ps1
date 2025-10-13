@@ -12,9 +12,9 @@ Start-Process powershell -ArgumentList "-NoExit", "-Command", "pnpm dev"
 
 Write-Host ""
 Write-Host "Both servers are starting..." -ForegroundColor Green
-Write-Host "Backend:  https://dairy-flow-backend.onrender.com" -ForegroundColor Cyan
+Write-Host "Backend:  https://dairy-flow-backend-postgres.onrender.com/" -ForegroundColor Cyan
 Write-Host "Frontend: http://localhost:8080" -ForegroundColor Cyan
-Write-Host "API Docs:  https://dairy-flow-backend.onrender.com/docs" -ForegroundColor Cyan
+Write-Host "API Docs:  https://dairy-flow-backend-postgres.onrender.com//docs" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Press any key to continue..." -ForegroundColor Gray
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")

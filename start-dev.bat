@@ -13,8 +13,8 @@ start "Frontend Server" cmd /k "pnpm dev"
 
 echo.
 echo Both servers are starting...
-echo Backend:  https://dairy-flow-backend.onrender.com
+echo Backend:  https://dairy-flow-backend-postgres.onrender.com/
 echo Frontend: http://localhost:8080
-echo API Docs:  https://dairy-flow-backend.onrender.com/docs
+echo API Docs:  https://dairy-flow-backend-postgres.onrender.com//docs
 echo.
 pause

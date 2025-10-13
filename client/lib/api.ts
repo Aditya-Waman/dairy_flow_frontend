@@ -1,7 +1,7 @@
 // API utility functions for communicating with the backend
 import { useAuth } from '@/context/AuthContext';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ' https://dairy-flow-backend.onrender.com';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ' https://dairy-flow-backend-postgres.onrender.com/';
 
 export interface ApiResponse<T = any> {
   success: boolean;
