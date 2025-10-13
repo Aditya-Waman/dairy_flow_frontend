@@ -13,26 +13,22 @@ export function createServer() {
   app.use(express.urlencoded({ extended: true }));
 
   // Proxy all /api requests to the Fastify backend
-  const backendUrl = process.env.BACKEND_URL || " https://dairy-flow-backend-postgres.onrender.com";
+  const backendUrl = process.env.BACKEND_URL || "https://dairy-flow-backend-postgres.onrender.com";
   
   app.use("/api", createProxyMiddleware({
     target: backendUrl,
-    changeOrigin: true,
-    onError: (err, req, res) => {
-      console.error("Proxy error:", err);
-      res.status(500).json({
-        success: false,
-        error: "Backend service unavailable",
-        message: "Unable to connect to backend service"
-      });
-    },
-    onProxyReq: (proxyReq, req, res) => {
-      // Forward authorization header
-      if (req.headers.authorization) {
-        proxyReq.setHeader('authorization', req.headers.authorization);
-      }
-    }
+    changeOrigin: true
   }));
+
+  // Error handling middleware for proxy
+  app.use("/api", (err: any, req: any, res: any, next: any) => {
+    console.error("Proxy error:", err);
+    res.status(500).json({
+      success: false,
+      error: "Backend service unavailable",
+      message: "Unable to connect to backend service"
+    });
+  });
 
   // Example API routes (fallback if backend is not available)
   app.get("/api/ping", (_req, res) => {
