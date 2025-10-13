@@ -1,0 +1,525 @@
+/** @import must precede all other statements */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Animations for PARAS DAIRY Logo */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.animate-zoom-in {
+  animation: zoom-in 0.6s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out forwards;
+}
+
+.animate-gradient-x {
+  animation: gradient-x 3s ease infinite;
+}
+
+@keyframes premium-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4), 0 0 40px rgba(16, 185, 129, 0.2), 0 0 60px rgba(16, 185, 129, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.6), 0 0 50px rgba(16, 185, 129, 0.3), 0 0 70px rgba(16, 185, 129, 0.2);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-premium-glow {
+  animation: premium-glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@layer base {
+  /**
+   * Tailwind CSS theme
+   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
+   * A different format will require also updating the theme in tailwind.config.ts.
+  */
+  :root {
+    /* Green & White Dairy Theme */
+    --background: 0 0% 100%;
+    --foreground: 146 30% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 146 30% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 146 30% 15%;
+
+    /* Primary brand green */
+    --primary: 142 70% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Soft mint secondary */
+    --secondary: 140 40% 96%;
+    --secondary-foreground: 146 30% 20%;
+
+    --muted: 140 30% 96%;
+    --muted-foreground: 146 15% 35%;
+
+    --accent: 142 45% 94%;
+    --accent-foreground: 146 30% 20%;
+
+    --destructive: 0 72% 46%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 146 30% 90%;
+    --input: 146 30% 90%;
+    --ring: 142 70% 40%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 99%;
+    --sidebar-foreground: 146 25% 20%;
+    --sidebar-primary: 142 70% 40%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 142 40% 95%;
+    --sidebar-accent-foreground: 146 25% 20%;
+    --sidebar-border: 146 20% 88%;
+    --sidebar-ring: 142 70% 40%;
+  }
+
+  .dark {
+    --background: 146 30% 8%;
+    --foreground: 140 20% 96%;
+
+    --card: 146 30% 10%;
+    --card-foreground: 140 20% 96%;
+
+    --popover: 146 30% 10%;
+    --popover-foreground: 140 20% 96%;
+
+    --primary: 141 65% 55%;
+    --primary-foreground: 146 30% 10%;
+
+    --secondary: 146 20% 16%;
+    --secondary-foreground: 140 20% 96%;
+
+    --muted: 146 20% 16%;
+    --muted-foreground: 140 10% 70%;
+
+    --accent: 146 22% 18%;
+    --accent-foreground: 140 20% 96%;
+
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 146 18% 22%;
+    --input: 146 18% 22%;
+    --ring: 141 65% 55%;
+
+    --sidebar-background: 146 26% 12%;
+    --sidebar-foreground: 140 15% 92%;
+    --sidebar-primary: 141 65% 55%;
+    --sidebar-primary-foreground: 146 26% 12%;
+    --sidebar-accent: 146 22% 18%;
+    --sidebar-accent-foreground: 140 15% 92%;
+    --sidebar-border: 146 18% 22%;
+    --sidebar-ring: 141 65% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden !important; /* Prevent horizontal scrollbar */
+    max-width: 100vw;
+  }
+
+  html {
+    overflow-x: hidden !important; /* Prevent horizontal scrollbar */
+    max-width: 100vw;
+  }
+
+  /* Ensure all containers respect viewport width */
+  .container, .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl, .max-w-3xl, .max-w-2xl, .max-w-xl, .max-w-lg, .max-w-md, .max-w-sm, .max-w-xs {
+    max-width: 100vw !important;
+  }
+
+  /* Prevent tables from causing horizontal overflow */
+  table {
+    table-layout: fixed;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  /* Ensure responsive behavior */
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  }
+
+  /* Prevent any element from exceeding viewport */
+  * {
+    max-width: 100%;
+  }
+
+  /* Table wrapper for horizontal scroll on mobile */
+  .table-container {
+    overflow-x: auto;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  .animate-bounce-subtle {
+    animation: bounceSubtle 2s infinite;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes bounceSubtle {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-2px);
+    }
+    60% {
+      transform: translateY(-1px);
+    }
+  }
+
+  @keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+      transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+      transform: translateX(5px);
+    }
+  }
+
+  /* Smooth transitions for interactive elements */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Shake animation */
+  .animate-shake {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  /* Hover effects */
+  .hover-lift {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+/* Pulse animation for notifications */
+.animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Compact calendar - removed as we're using custom mini calendar */
+
+/* Print-friendly styles */
+@media print {
+  @page {
+    margin: 1.5cm;
+    size: A4;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+  
+  /* Hide interactive elements when printing */
+  button,
+  .no-print,
+  nav,
+  [data-sidebar],
+  [role="navigation"],
+  input,
+  select,
+  textarea,
+  .sidebar,
+  header,
+  .sticky {
+    display: none !important;
+  }
+  
+  /* Optimize tables for print */
+  table {
+    page-break-inside: auto;
+    border-collapse: collapse;
+    width: 100% !important;
+    font-size: 9pt;
+    border: 1px solid #333;
+  }
+  
+  thead {
+    display: table-header-group;
+    background: #f0f0f0 !important;
+    font-weight: bold;
+  }
+  
+  th, td {
+    border: 1px solid #ccc !important;
+    padding: 6px 8px !important;
+    text-align: left;
+  }
+  
+  th {
+    background: #e8e8e8 !important;
+    font-weight: bold !important;
+    color: black !important;
+  }
+  
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  
+  tbody tr:nth-child(even) {
+    background: #f9f9f9 !important;
+  }
+  
+  /* Remove shadows and backgrounds */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    background-image: none !important;
+  }
+  
+  /* Ensure text is readable */
+  h1 {
+    font-size: 20pt;
+    font-weight: bold;
+    color: black !important;
+    page-break-after: avoid;
+    margin-bottom: 10pt;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5pt;
+  }
+  
+  h2 {
+    font-size: 16pt;
+    font-weight: bold;
+    color: black !important;
+    page-break-after: avoid;
+    margin-top: 15pt;
+    margin-bottom: 8pt;
+  }
+  
+  h3, h4, h5, h6 {
+    color: black !important;
+    page-break-after: avoid;
+    font-weight: bold;
+  }
+  
+  p, li, span {
+    color: black !important;
+  }
+  
+  /* Make links visible */
+  a {
+    text-decoration: none;
+    color: black !important;
+  }
+  
+  /* Show borders on cards */
+  .card,
+  [class*="Card"] {
+    border: 1px solid #ddd !important;
+    background: white !important;
+    page-break-inside: avoid;
+    margin-bottom: 15pt;
+    padding: 10pt;
+  }
+  
+  /* Print header on each page */
+  .print-header {
+    display: block !important;
+    position: running(header);
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5pt;
+    margin-bottom: 10pt;
+  }
+  
+  /* Status badges */
+  .inline-flex[class*="rounded"] {
+    border: 1px solid #333 !important;
+    padding: 2px 6px !important;
+    background: white !important;
+    color: black !important;
+  }
+  
+  /* Improve spacing */
+  .space-y-6 > * + * {
+    margin-top: 15pt !important;
+  }
+  
+  /* Page breaks */
+  .page-break-before {
+    page-break-before: always;
+  }
+  
+  .page-break-after {
+    page-break-after: always;
+  }
+  
+  /* Print logo/branding */
+  .print-logo {
+    display: block !important;
+    margin-bottom: 20pt;
+  }
+  
+  /* Better number formatting */
+  .font-mono {
+    font-family: 'Courier New', monospace;
+  }
+}
+
+/* Glass-morphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Gradient backgrounds */
+.gradient-primary {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.7) 100%);
+}
+
+.gradient-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.gradient-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.gradient-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+}
