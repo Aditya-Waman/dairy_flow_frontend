@@ -95,25 +95,48 @@ export default function Stock() {
       sellingPrice: Number(formData.sellingPrice),
     } as const;
     
-    if (editing?.id) {
-      updateStock(editing.id, payload as any);
-      toast({ title: "Feed updated successfully", description: `${payload.name} has been updated.` });
-    } else {
-      addStock(payload as any);
-      toast({ title: "Feed added successfully", description: `${payload.name} has been added to stock.` });
+    // Check for duplicate feed name
+    const isDuplicate = stock.some(item => 
+      item.name.toLowerCase() === payload.name.toLowerCase() && 
+      (!editing || item.id !== editing.id)
+    );
+    
+    if (isDuplicate) {
+      toast({ 
+        title: "Duplicate Feed Name", 
+        description: `A feed with the name "${payload.name}" already exists. Please choose a different name.`,
+        variant: "destructive"
+      });
+      return;
     }
     
-    // Close dialog and reset form
-    setEditing(null);
-    setIsAddDialogOpen(false);
-    setFormData({
-      name: "",
-      type: "",
-      quantityBags: 0,
-      bagWeight: 50,
-      purchasePrice: 0,
-      sellingPrice: 0,
-    });
+    try {
+      if (editing?.id) {
+        updateStock(editing.id, payload as any);
+        toast({ title: "Feed updated successfully", description: `${payload.name} has been updated.` });
+      } else {
+        addStock(payload as any);
+        toast({ title: "Feed added successfully", description: `${payload.name} has been added to stock.` });
+      }
+      
+      // Close dialog and reset form
+      setEditing(null);
+      setIsAddDialogOpen(false);
+      setFormData({
+        name: "",
+        type: "",
+        quantityBags: 0,
+        bagWeight: 50,
+        purchasePrice: 0,
+        sellingPrice: 0,
+      });
+    } catch (error) {
+      toast({ 
+        title: "Error", 
+        description: "Failed to save feed. Please try again.",
+        variant: "destructive"
+      });
+    }
   }
 
   const handleRestock = async (e: React.FormEvent<HTMLFormElement>) => {
