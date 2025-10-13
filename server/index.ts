@@ -13,7 +13,7 @@ export function createServer() {
   app.use(express.urlencoded({ extended: true }));
 
   // Proxy all /api requests to the Fastify backend
-  const backendUrl = process.env.BACKEND_URL || " https://dairy-flow-backend-postgres.onrender.com/";
+  const backendUrl = process.env.BACKEND_URL || " https://dairy-flow-backend-postgres.onrender.com";
   
   app.use("/api", createProxyMiddleware({
     target: backendUrl,
