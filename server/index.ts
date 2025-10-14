@@ -15,6 +15,8 @@ export function createServer() {
   // Proxy all /api requests to the Fastify backend
   const backendUrl = process.env.BACKEND_URL || "https://dairy-flow-backend-postgres.onrender.com";
   
+  console.log(`🔗 Proxying API requests to: ${backendUrl}`);
+  
   app.use("/api", createProxyMiddleware({
     target: backendUrl,
     changeOrigin: true
