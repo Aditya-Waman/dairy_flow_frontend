@@ -38,15 +38,19 @@ export type StockItem = {
 
 export type FeedRequest = {
   id: string;
-  farmerId: string;
-  feedId: string;
+  farmerId: string | { id: string; fullName: string; mobile: string; code: string };
+  feedId: string | { id: string; name: string; type: string; sellingPrice: number; purchasePrice: number };
   qtyBags: number;
-  price: number; // auto-calculated (sellingPrice * qty)
+  price: number; // auto-calculated (feedPrice * qty)
   status: "Pending" | "Approved" | "Rejected";
   createdAt: string;
   createdBy: string;
   approvedBy?: string;
   approvedAt?: string;
+  // Historical prices stored at approval time
+  sellingPriceAtApproval?: number; // selling price per bag at time of approval
+  purchasePriceAtApproval?: number; // purchase price per bag at time of approval
+  totalProfitAtApproval?: number; // total profit at time of approval
 };
 
 export type DataError = {

@@ -136,8 +136,8 @@ export default function Requests() {
               ) : (
                 requests.filter(r=>r.status==="Pending").map((r)=> {
                   // Use populated data directly from the request
-                  const f = r.farmerId; // This is already populated with farmer data
-                  const s = r.feedId;   // This is already populated with stock data
+                  const f = typeof r.farmerId === 'object' ? r.farmerId : null; // This is already populated with farmer data
+                  const s = typeof r.feedId === 'object' ? r.feedId : null;   // This is already populated with stock data
                   return (
                     <div key={r.id} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow duration-200 dark:bg-gray-800/30">
                       <div className="flex items-center justify-between">
@@ -153,7 +153,7 @@ export default function Requests() {
                               <p className="text-sm text-gray-500 dark:text-gray-400">Code: {f?.code}</p>
                             </div>
                           </div>
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                          <div className="grid grid-cols-2 md:grid-cols-7 gap-4 text-sm">
                             <div>
                               <span className="text-gray-500">Feed:</span>
                               <p className="font-medium">{s?.name}</p>
@@ -163,8 +163,20 @@ export default function Requests() {
                               <p className="font-medium">{r.qtyBags} bags</p>
                             </div>
                             <div>
-                              <span className="text-gray-500">Price:</span>
+                              <span className="text-gray-500">Sell Price:</span>
+                              <p className="font-medium">₹{(s?.sellingPrice || stock.find(stockItem => stockItem.id === r.feedId)?.sellingPrice || 0).toLocaleString()}</p>
+                            </div>
+                            <div>
+                              <span className="text-gray-500">Cost Price:</span>
+                              <p className="font-medium text-red-600">₹{(s?.purchasePrice || stock.find(stockItem => stockItem.id === r.feedId)?.purchasePrice || 0).toLocaleString()}</p>
+                            </div>
+                            <div>
+                              <span className="text-gray-500">Total Price:</span>
                               <p className="font-medium text-green-600">₹{r.price.toLocaleString()}</p>
+                            </div>
+                            <div>
+                              <span className="text-gray-500">Profit:</span>
+                              <p className="font-medium text-blue-600">₹{(((s?.sellingPrice || stock.find(stockItem => stockItem.id === r.feedId)?.sellingPrice || 0) - (s?.purchasePrice || stock.find(stockItem => stockItem.id === r.feedId)?.purchasePrice || 0)) * r.qtyBags).toLocaleString()}</p>
                             </div>
                             <div>
                               <span className="text-gray-500">Requested:</span>
@@ -205,9 +217,10 @@ export default function Requests() {
             <div className="space-y-4">
               {requests.filter(r=>r.status!=="Pending").slice(0,10).map((r)=>{
                 // Use populated data directly from the request
-                const f = r.farmerId; // This is already populated with farmer data
-                const s = r.feedId;   // This is already populated with stock data
+                const f = typeof r.farmerId === 'object' ? r.farmerId : null; // This is already populated with farmer data
+                const s = typeof r.feedId === 'object' ? r.feedId : null;   // This is already populated with stock data
                 const isApproved = r.status === "Approved";
+                
                 return (
                   <div key={r.id} className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow duration-200 dark:bg-gray-800/30">
                     <div className="flex items-start justify-between">
@@ -226,7 +239,7 @@ export default function Requests() {
                             {r.status}
                           </span>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 text-sm">
                           <div>
                             <span className="text-gray-500 dark:text-gray-400">Feed Name:</span>
                             <p className="font-medium text-gray-900 dark:text-gray-100">{s?.name}</p>
@@ -236,9 +249,31 @@ export default function Requests() {
                             <p className="font-medium text-gray-900 dark:text-gray-100">{r.qtyBags} bags</p>
                           </div>
                           <div>
-                            <span className="text-gray-500 dark:text-gray-400">Price:</span>
+                            <span className="text-gray-500 dark:text-gray-400">Sell Price:</span>
+                            <p className="font-medium text-gray-900 dark:text-gray-100">
+                              ₹{isApproved && r.sellingPriceAtApproval 
+                                ? r.sellingPriceAtApproval.toLocaleString() 
+                                : (s?.sellingPrice || stock.find(stockItem => stockItem.id === r.feedId)?.sellingPrice || 0).toLocaleString()}
+                            </p>
+                          </div>
+                          <div>
+                            <span className="text-gray-500 dark:text-gray-400">Cost Price:</span>
+                            <p className="font-medium text-red-600 dark:text-red-400">
+                              ₹{isApproved && r.purchasePriceAtApproval 
+                                ? r.purchasePriceAtApproval.toLocaleString() 
+                                : (s?.purchasePrice || stock.find(stockItem => stockItem.id === r.feedId)?.purchasePrice || 0).toLocaleString()}
+                            </p>
+                          </div>
+                          <div>
+                            <span className="text-gray-500 dark:text-gray-400">Total Price:</span>
                             <p className="font-medium text-green-600 dark:text-green-400">₹{r.price.toLocaleString()}</p>
                           </div>
+                          {isApproved && r.totalProfitAtApproval && (
+                            <div>
+                              <span className="text-gray-500 dark:text-gray-400">Profit:</span>
+                              <p className="font-medium text-blue-600 dark:text-blue-400">₹{r.totalProfitAtApproval.toLocaleString()}</p>
+                            </div>
+                          )}
                         </div>
                       </div>
                       <div className="text-right text-sm text-gray-500 dark:text-gray-400 ml-4">

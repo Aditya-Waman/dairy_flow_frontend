@@ -40,8 +40,11 @@ export default function Reports() {
       const feed = typeof r.feedId === 'object' ? r.feedId : stock.find((s)=>s.id===r.feedId);
       if (!feed) continue;
       qty += r.qtyBags;
-      revenue += r.qtyBags * feed.sellingPrice;
-      cost += r.qtyBags * feed.purchasePrice;
+      // Use historical prices for approved requests
+      const purchasePrice = r.purchasePriceAtApproval || feed.purchasePrice;
+      const sellingPrice = r.sellingPriceAtApproval || feed.sellingPrice;
+      revenue += r.qtyBags * sellingPrice;
+      cost += r.qtyBags * purchasePrice;
     }
     return { qty, revenue, cost, profit: revenue - cost };
   }, [filteredRequests, stock]);
@@ -82,12 +85,17 @@ export default function Reports() {
         };
       }
 
+      // Use historical prices for approved requests
+      const purchasePrice = r.purchasePriceAtApproval || feed.purchasePrice;
+      const sellingPrice = r.sellingPriceAtApproval || feed.sellingPrice;
+      const profitPerBag = sellingPrice - purchasePrice;
+
       const feedIndex = farmerMap[farmer.id].feeds.findIndex(f => f.feedName === feed.name);
       if (feedIndex >= 0) {
         farmerMap[farmer.id].feeds[feedIndex].bags += r.qtyBags;
-        farmerMap[farmer.id].feeds[feedIndex].revenue += r.qtyBags * feed.sellingPrice;
-        farmerMap[farmer.id].feeds[feedIndex].cost += r.qtyBags * feed.purchasePrice;
-        farmerMap[farmer.id].feeds[feedIndex].profit += r.qtyBags * (feed.sellingPrice - feed.purchasePrice);
+        farmerMap[farmer.id].feeds[feedIndex].revenue += r.qtyBags * sellingPrice;
+        farmerMap[farmer.id].feeds[feedIndex].cost += r.qtyBags * purchasePrice;
+        farmerMap[farmer.id].feeds[feedIndex].profit += r.qtyBags * profitPerBag;
         if (r.approvedAt && new Date(r.approvedAt) > new Date(farmerMap[farmer.id].feeds[feedIndex].lastApproved)) {
           farmerMap[farmer.id].feeds[feedIndex].lastApproved = r.approvedAt;
           farmerMap[farmer.id].feeds[feedIndex].approvedBy = r.approvedBy || '';
@@ -96,18 +104,18 @@ export default function Reports() {
         farmerMap[farmer.id].feeds.push({
           feedName: feed.name,
           bags: r.qtyBags,
-          revenue: r.qtyBags * feed.sellingPrice,
-          cost: r.qtyBags * feed.purchasePrice,
-          profit: r.qtyBags * (feed.sellingPrice - feed.purchasePrice),
+          revenue: r.qtyBags * sellingPrice,
+          cost: r.qtyBags * purchasePrice,
+          profit: r.qtyBags * profitPerBag,
           lastApproved: r.approvedAt || '',
           approvedBy: r.approvedBy || ''
         });
       }
 
       farmerMap[farmer.id].totalBags += r.qtyBags;
-      farmerMap[farmer.id].totalRevenue += r.qtyBags * feed.sellingPrice;
-      farmerMap[farmer.id].totalCost += r.qtyBags * feed.purchasePrice;
-      farmerMap[farmer.id].totalProfit += r.qtyBags * (feed.sellingPrice - feed.purchasePrice);
+      farmerMap[farmer.id].totalRevenue += r.qtyBags * sellingPrice;
+      farmerMap[farmer.id].totalCost += r.qtyBags * purchasePrice;
+      farmerMap[farmer.id].totalProfit += r.qtyBags * profitPerBag;
     });
 
     return Object.values(farmerMap).sort((a, b) => b.totalProfit - a.totalProfit);
@@ -312,14 +320,17 @@ export default function Reports() {
                               ${filteredRequests.map((r:any) => {
                                 const f = typeof r.farmerId === 'object' ? r.farmerId : farmers.find((x:any)=>x.id===r.farmerId);
                                 const s = typeof r.feedId === 'object' ? r.feedId : stock.find((x:any)=>x.id===r.feedId);
-                                const totalPrice = (s?.sellingPrice || 0) * r.qtyBags;
-                                const totalProfit = ((s?.sellingPrice || 0) - (s?.purchasePrice || 0)) * r.qtyBags;
+                                // Use historical prices for approved requests
+                                const sellingPrice = r.sellingPriceAtApproval || s?.sellingPrice || 0;
+                                const purchasePrice = r.purchasePriceAtApproval || s?.purchasePrice || 0;
+                                const totalPrice = sellingPrice * r.qtyBags;
+                                const totalProfit = (sellingPrice - purchasePrice) * r.qtyBags;
                                 return `
                                   <tr>
                                       <td>${f?.fullName || 'N/A'}</td>
                                       <td><span class="badge badge-blue">${f?.code || 'N/A'}</span></td>
                                       <td>${s?.name || 'Unknown Feed'}</td>
-                                      <td><span class="badge badge-green">₹${s?.sellingPrice || 0}</span></td>
+                                      <td><span class="badge badge-green">₹${sellingPrice}</span></td>
                                       <td><span class="badge badge-purple">${r.qtyBags} bags</span></td>
                                       <td><span class="badge badge-yellow">₹${totalPrice.toLocaleString()}</span></td>
                                       <td><span class="badge badge-indigo">${r.approvedBy || 'System'}</span></td>
@@ -567,8 +578,11 @@ export default function Reports() {
                     // Use populated data directly from the request
                     const f = typeof r.farmerId === 'object' ? r.farmerId : farmers.find((x:any)=>x.id===r.farmerId);
                     const s = typeof r.feedId === 'object' ? r.feedId : stock.find((x:any)=>x.id===r.feedId);
-                    const totalPrice = (s?.sellingPrice || 0) * r.qtyBags;
-                    const totalProfit = ((s?.sellingPrice || 0) - (s?.purchasePrice || 0)) * r.qtyBags;
+                    // Use historical prices for approved requests
+                    const sellingPrice = r.sellingPriceAtApproval || s?.sellingPrice || 0;
+                    const purchasePrice = r.purchasePriceAtApproval || s?.purchasePrice || 0;
+                    const totalPrice = sellingPrice * r.qtyBags;
+                    const totalProfit = (sellingPrice - purchasePrice) * r.qtyBags;
                     
                     return (
                       <TableRow 
@@ -593,7 +607,7 @@ export default function Reports() {
                         </TableCell>
                         <TableCell className="text-center py-4 px-3">
                           <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800 border border-green-200">
-                            ₹{s?.sellingPrice || 0}
+                            ₹{sellingPrice}
                           </span>
                         </TableCell>
                         <TableCell className="text-center py-4 px-3">

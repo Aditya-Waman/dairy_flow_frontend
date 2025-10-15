@@ -35,8 +35,11 @@ export default function SuperadminDashboard() {
       const feed = typeof r.feedId === 'object' && r.feedId ? r.feedId : stock.find((s) => s.id === r.feedId);
       if (!feed) return acc;
       acc.qty += r.qtyBags;
-      acc.cost += r.qtyBags * feed.purchasePrice;
-      acc.revenue += r.qtyBags * feed.sellingPrice;
+      // Use historical prices for approved requests, current prices for others
+      const purchasePrice = r.purchasePriceAtApproval || feed.purchasePrice;
+      const sellingPrice = r.sellingPriceAtApproval || feed.sellingPrice;
+      acc.cost += r.qtyBags * purchasePrice;
+      acc.revenue += r.qtyBags * sellingPrice;
       return acc;
     },
     { qty: 0, cost: 0, revenue: 0 },
@@ -51,8 +54,15 @@ export default function SuperadminDashboard() {
       return requestFeedId === s.id;
     });
     const qty = items.reduce((a, r) => a + r.qtyBags, 0);
-    const cost = qty * s.purchasePrice;
-    const revenue = qty * s.sellingPrice;
+    // Calculate using historical prices for approved requests
+    const cost = items.reduce((a, r) => {
+      const purchasePrice = r.purchasePriceAtApproval || s.purchasePrice;
+      return a + (r.qtyBags * purchasePrice);
+    }, 0);
+    const revenue = items.reduce((a, r) => {
+      const sellingPrice = r.sellingPriceAtApproval || s.sellingPrice;
+      return a + (r.qtyBags * sellingPrice);
+    }, 0);
     const pf = revenue - cost;
     return { id: s.id, name: s.name, qty, cost, revenue, profit: pf };
   }).filter((x) => x.qty > 0);
@@ -129,8 +139,11 @@ export default function SuperadminDashboard() {
     const feed = typeof r.feedId === 'object' && r.feedId ? r.feedId : stock.find(s=>s.id===r.feedId);
     if (!feed) return acc;
     acc.qty += r.qtyBags;
-    acc.revenue += r.qtyBags * feed.sellingPrice;
-    acc.cost += r.qtyBags * feed.purchasePrice;
+    // Use historical prices for approved requests
+    const purchasePrice = r.purchasePriceAtApproval || feed.purchasePrice;
+    const sellingPrice = r.sellingPriceAtApproval || feed.sellingPrice;
+    acc.revenue += r.qtyBags * sellingPrice;
+    acc.cost += r.qtyBags * purchasePrice;
     return acc;
   }, { qty:0, revenue:0, cost:0 });
   const todayProfit = todayTotals.revenue - todayTotals.cost;
@@ -144,7 +157,9 @@ export default function SuperadminDashboard() {
     const key = f.id;
     if (!topMap[key]) topMap[key] = { name: f.fullName, code: f.code, qty: 0, cost: 0, approvedBy: r.approvedBy || "", approvedAt: r.approvedAt, feeds: new Set<string>() };
     topMap[key].qty += r.qtyBags;
-    topMap[key].cost += r.qtyBags * s.sellingPrice;
+    // Use historical prices for approved requests
+    const sellingPrice = r.sellingPriceAtApproval || s.sellingPrice;
+    topMap[key].cost += r.qtyBags * sellingPrice;
     topMap[key].approvedBy = r.approvedBy || topMap[key].approvedBy;
     if (!topMap[key].approvedAt || (r.approvedAt && new Date(r.approvedAt) > new Date(topMap[key].approvedAt))) {
       topMap[key].approvedAt = r.approvedAt;
@@ -160,10 +175,11 @@ export default function SuperadminDashboard() {
       return f?.id === farmerData.farmer.id;
     });
 
-    // Calculate total amount for this farmer
+    // Calculate total amount for this farmer using historical prices
     const farmerTotal = farmerRequests.reduce((total, r) => {
       const s = typeof r.feedId === 'object' ? r.feedId : stock.find((x) => x.id === r.feedId);
-      return total + ((s?.sellingPrice || 0) * r.qtyBags);
+      const sellingPrice = r.sellingPriceAtApproval || s?.sellingPrice || 0;
+      return total + (sellingPrice * r.qtyBags);
     }, 0);
 
     const htmlContent = `
@@ -366,11 +382,13 @@ export default function SuperadminDashboard() {
                       <div class="section-title">Feed Request Details</div>
                       ${farmerRequests.map((r) => {
                         const s = typeof r.feedId === 'object' ? r.feedId : stock.find((x) => x.id === r.feedId);
+                        // Use historical prices for approved requests
+                        const sellingPrice = r.sellingPriceAtApproval || s?.sellingPrice || 0;
                         return `
                           <div class="request-item">
                               <div class="request-header">
                                   <div class="feed-name">${s?.name || 'Unknown Feed'}</div>
-                                  <div class="feed-rate">Rate: ₹${s?.sellingPrice || 0}/bag</div>
+                                  <div class="feed-rate">Rate: ₹${sellingPrice}/bag</div>
                               </div>
                               <div class="request-details">
                                   <div class="detail-item">
@@ -379,11 +397,11 @@ export default function SuperadminDashboard() {
                                   </div>
                                   <div class="detail-item">
                                       <span class="detail-label">Feed Rate:</span>
-                                      <span class="detail-value">₹${s?.sellingPrice || 0}/bag</span>
+                                      <span class="detail-value">₹${sellingPrice}/bag</span>
                                   </div>
                                   <div class="detail-item">
                                       <span class="detail-label">Total Bill:</span>
-                                      <span class="detail-value">₹${((s?.sellingPrice || 0) * r.qtyBags).toLocaleString()}</span>
+                                      <span class="detail-value">₹${(sellingPrice * r.qtyBags).toLocaleString()}</span>
                                   </div>
                                   <div class="detail-item">
                                       <span class="detail-label">Approval Date:</span>
@@ -896,6 +914,8 @@ export default function SuperadminDashboard() {
                           <TableBody>
                             {farmerData.requests.map((r, index) => {
                               const s = typeof r.feedId === 'object' ? r.feedId : stock.find((x) => x.id === r.feedId);
+                              // Use historical prices for approved requests
+                              const sellingPrice = r.sellingPriceAtApproval || s?.sellingPrice || 0;
                               return (
                                 <TableRow key={r.id} className={`hover:bg-indigo-50/50 transition-colors duration-200 ${index % 2 === 0 ? 'bg-white' : 'bg-indigo-25/30'}`}>
                                   <TableCell className="font-semibold text-gray-800">
@@ -911,12 +931,12 @@ export default function SuperadminDashboard() {
                                   </TableCell>
                                   <TableCell className="text-center">
                                     <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800">
-                                      ₹{s?.sellingPrice || 0}/bag
+                                      ₹{sellingPrice}/bag
                                     </span>
                                   </TableCell>
                                   <TableCell className="text-center">
                                     <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800">
-                                      ₹{((s?.sellingPrice || 0) * r.qtyBags).toLocaleString()}
+                                      ₹{(sellingPrice * r.qtyBags).toLocaleString()}
                                     </span>
                                   </TableCell>
                                   <TableCell className="text-center">

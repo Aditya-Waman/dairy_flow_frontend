@@ -19,8 +19,11 @@ export default function AdminDashboard() {
     const feed = typeof r.feedId === 'object' ? r.feedId : stock.find(s=>s.id===r.feedId);
     if (!feed) return acc;
     acc.qty += r.qtyBags;
-    acc.revenue += r.qtyBags * feed.sellingPrice;
-    acc.cost += r.qtyBags * feed.purchasePrice;
+    // Use historical prices for approved requests
+    const purchasePrice = r.purchasePriceAtApproval || feed.purchasePrice;
+    const sellingPrice = r.sellingPriceAtApproval || feed.sellingPrice;
+    acc.revenue += r.qtyBags * sellingPrice;
+    acc.cost += r.qtyBags * purchasePrice;
     return acc;
   }, { qty:0, revenue:0, cost:0 });
   const todayProfit = todayTotals.revenue - todayTotals.cost;
@@ -37,8 +40,11 @@ export default function AdminDashboard() {
     const feed = typeof r.feedId === 'object' ? r.feedId : stock.find(s=>s.id===r.feedId);
     if (!feed) return acc;
     acc.qty += r.qtyBags;
-    acc.revenue += r.qtyBags * feed.sellingPrice;
-    acc.cost += r.qtyBags * feed.purchasePrice;
+    // Use historical prices for approved requests
+    const purchasePrice = r.purchasePriceAtApproval || feed.purchasePrice;
+    const sellingPrice = r.sellingPriceAtApproval || feed.sellingPrice;
+    acc.revenue += r.qtyBags * sellingPrice;
+    acc.cost += r.qtyBags * purchasePrice;
     return acc;
   }, { qty:0, revenue:0, cost:0 });
   const profit = totals.revenue - totals.cost;
@@ -50,10 +56,11 @@ export default function AdminDashboard() {
       return f?.id === farmerData.farmer.id;
     });
 
-    // Calculate total amount for this farmer
+    // Calculate total amount for this farmer using historical prices
     const farmerTotal = farmerRequests.reduce((total, r) => {
       const s = typeof r.feedId === 'object' ? r.feedId : stock.find((x) => x.id === r.feedId);
-      return total + ((s?.sellingPrice || 0) * r.qtyBags);
+      const sellingPrice = r.sellingPriceAtApproval || s?.sellingPrice || 0;
+      return total + (sellingPrice * r.qtyBags);
     }, 0);
 
     const htmlContent = `
@@ -256,11 +263,13 @@ export default function AdminDashboard() {
                       <div class="section-title">Feed Request Details</div>
                       ${farmerRequests.map((r) => {
                         const s = typeof r.feedId === 'object' ? r.feedId : stock.find((x) => x.id === r.feedId);
+                        // Use historical prices for approved requests
+                        const sellingPrice = r.sellingPriceAtApproval || s?.sellingPrice || 0;
                         return `
                           <div class="request-item">
                               <div class="request-header">
                                   <div class="feed-name">${s?.name || 'Unknown Feed'}</div>
-                                  <div class="feed-rate">Rate: ₹${s?.sellingPrice || 0}/bag</div>
+                                  <div class="feed-rate">Rate: ₹${sellingPrice}/bag</div>
                               </div>
                               <div class="request-details">
                                   <div class="detail-item">
@@ -269,11 +278,11 @@ export default function AdminDashboard() {
                                   </div>
                                   <div class="detail-item">
                                       <span class="detail-label">Feed Rate:</span>
-                                      <span class="detail-value">₹${s?.sellingPrice || 0}/bag</span>
+                                      <span class="detail-value">₹${sellingPrice}/bag</span>
                                   </div>
                                   <div class="detail-item">
                                       <span class="detail-label">Total Bill:</span>
-                                      <span class="detail-value">₹${((s?.sellingPrice || 0) * r.qtyBags).toLocaleString()}</span>
+                                      <span class="detail-value">₹${(sellingPrice * r.qtyBags).toLocaleString()}</span>
                                   </div>
                                   <div class="detail-item">
                                       <span class="detail-label">Approval Date:</span>
@@ -755,6 +764,8 @@ export default function AdminDashboard() {
                           <TableBody>
                             {farmerData.requests.map((r, index) => {
                               const s = typeof r.feedId === 'object' ? r.feedId : stock.find((x) => x.id === r.feedId);
+                              // Use historical prices for approved requests
+                              const sellingPrice = r.sellingPriceAtApproval || s?.sellingPrice || 0;
                               return (
                                 <TableRow key={r.id} className={`hover:bg-indigo-50/50 transition-colors duration-200 ${index % 2 === 0 ? 'bg-white' : 'bg-indigo-25/30'}`}>
                                   <TableCell className="font-semibold text-gray-800">
@@ -770,12 +781,12 @@ export default function AdminDashboard() {
                                   </TableCell>
                                   <TableCell className="text-center">
                                     <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800">
-                                      ₹{s?.sellingPrice || 0}/bag
+                                      ₹{sellingPrice}/bag
                                     </span>
                                   </TableCell>
                                   <TableCell className="text-center">
                                     <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800">
-                                      ₹{((s?.sellingPrice || 0) * r.qtyBags).toLocaleString()}
+                                      ₹{(sellingPrice * r.qtyBags).toLocaleString()}
                                     </span>
                                   </TableCell>
                                   <TableCell className="text-center">
