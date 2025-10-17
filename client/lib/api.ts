@@ -371,4 +371,17 @@ export const reportApi = {
     const queryString = searchParams.toString();
     return api.get<ApiResponse<any>>(`/api/reports/farmer/${farmerId}${queryString ? `?${queryString}` : ''}`);
   },
+
+  getFeedStockReport: (params?: { startDate?: string; endDate?: string }) => {
+    const searchParams = new URLSearchParams();
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined) {
+          searchParams.append(key, value.toString());
+        }
+      });
+    }
+    const queryString = searchParams.toString();
+    return api.get<ApiResponse<any>>(`/api/reports/feed-stock${queryString ? `?${queryString}` : ''}`);
+  },
 };

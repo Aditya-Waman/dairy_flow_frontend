@@ -7,6 +7,7 @@ import { useData } from "@/context/DataContext";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CompactDateRangePicker } from "@/components/ui/compact-date-picker";
+import FeedStockReport from "@/components/reports/FeedStockReport";
 
 export default function SuperadminDashboard() {
   const { stock, requests, farmers, admins } = useData();
@@ -967,6 +968,11 @@ export default function SuperadminDashboard() {
             </div>
           </CardContent>
         </Card>
+      </section>
+
+      {/* Feed Stock Report Section */}
+      <section className="space-y-6">
+        <FeedStockReport />
       </section>
     </div>
   );

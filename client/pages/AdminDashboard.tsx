@@ -7,6 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useData } from "@/context/DataContext";
 import { CompactDateRangePicker } from "@/components/ui/compact-date-picker";
 import { Calendar as CalendarIcon, Users, UserX, Clock, Package, TrendingUp, DollarSign, FileText, Leaf, Download } from "lucide-react";
+import FeedStockReport from "@/components/reports/FeedStockReport";
 
 export default function AdminDashboard() {
   const { farmers, stock, requests, admins } = useData();
@@ -817,6 +818,11 @@ export default function AdminDashboard() {
             </div>
           </CardContent>
         </Card>
+      </section>
+
+      {/* Feed Stock Report Section */}
+      <section className="space-y-6">
+        <FeedStockReport />
       </section>
     </div>
   );
