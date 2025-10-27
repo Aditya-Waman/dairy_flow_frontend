@@ -8,6 +8,7 @@ import { useData } from "@/context/DataContext";
 import { CompactDateRangePicker } from "@/components/ui/compact-date-picker";
 import { Calendar as CalendarIcon, Users, UserX, Clock, Package, TrendingUp, DollarSign, FileText, Leaf, Download } from "lucide-react";
 import FeedStockReport from "@/components/reports/FeedStockReport";
+import { getDefaultDateRange } from "@/utils/dateRangeHelper";
 
 export default function AdminDashboard() {
   const { farmers, stock, requests, admins } = useData();
@@ -29,9 +30,10 @@ export default function AdminDashboard() {
   }, { qty:0, revenue:0, cost:0 });
   const todayProfit = todayTotals.revenue - todayTotals.cost;
 
-  // Range summary
-  const [startDate, setStartDate] = useState<Date | undefined>(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
-  const [endDate, setEndDate] = useState<Date | undefined>(new Date());
+  // Range summary with automatic date range selection
+  const defaultRange = getDefaultDateRange();
+  const [startDate, setStartDate] = useState<Date | undefined>(defaultRange.startDate);
+  const [endDate, setEndDate] = useState<Date | undefined>(defaultRange.endDate);
   const from = startDate ? new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), 0,0,0,0) : undefined;
   const to = endDate ? new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(), 23,59,59,999) : undefined;
   const rangeLabel = from && to ? `${from.toLocaleDateString()} – ${to.toLocaleDateString()}` : "Select dates";

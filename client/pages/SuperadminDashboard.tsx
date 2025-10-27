@@ -8,14 +8,16 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CompactDateRangePicker } from "@/components/ui/compact-date-picker";
 import FeedStockReport from "@/components/reports/FeedStockReport";
+import { getDefaultDateRange } from "@/utils/dateRangeHelper";
 
 export default function SuperadminDashboard() {
   const { stock, requests, farmers, admins } = useData();
   const navigate = useNavigate();
 
-  const month = new Date();
-  const [startDate, setStartDate] = useState<Date | undefined>(new Date(month.getFullYear(), month.getMonth(), 1));
-  const [endDate, setEndDate] = useState<Date | undefined>(new Date());
+  // Use automatic date range selection based on current date
+  const defaultRange = getDefaultDateRange();
+  const [startDate, setStartDate] = useState<Date | undefined>(defaultRange.startDate);
+  const [endDate, setEndDate] = useState<Date | undefined>(defaultRange.endDate);
   const from = startDate ? new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), 0, 0, 0, 0) : undefined;
   const to = endDate ? new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(), 23, 59, 59, 999) : undefined;
   const rangeLabel = from && to ? `${from.toLocaleDateString()} – ${to.toLocaleDateString()}` : from ? `${from.toLocaleDateString()}` : "All";
@@ -69,8 +71,9 @@ export default function SuperadminDashboard() {
   }).filter((x) => x.qty > 0);
 
   // Last month sales by feed (qty)
-  const lastMonthStart = new Date(month.getFullYear(), month.getMonth() - 1, 1);
-  const lastMonthEnd = new Date(month.getFullYear(), month.getMonth(), 0, 23, 59, 59, 999);
+  const today = new Date();
+  const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+  const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0, 23, 59, 59, 999);
   const approvedLastMonth = requests.filter((r) => {
     if (r.status !== "Approved" || !r.approvedAt) return false;
     const d = new Date(r.approvedAt);
