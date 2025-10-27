@@ -399,7 +399,7 @@ export default function AllFarmersTotal() {
             </Button>
           </div>
           {error && (
-            <div className="text-red-600 text-sm bg-red-50 p-3 rounded-md border border-red-200 flex items-center gap-2">
+            <div className="text-red-600 dark:text-red-400 text-sm bg-red-50 dark:bg-red-950/20 p-3 rounded-md border border-red-200 dark:border-red-800 flex items-center gap-2">
               <AlertCircle className="size-4" />
               {error}
             </div>
@@ -466,54 +466,54 @@ export default function AllFarmersTotal() {
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-gradient-to-r from-blue-100 to-indigo-100 border-b-2 border-blue-200">
-                    <TableHead className="font-bold text-blue-800 text-center py-4 px-3 min-w-[120px]">Serial Number</TableHead>
-                    <TableHead className="font-bold text-blue-800 text-center py-4 px-3 min-w-[200px]">Farmer's Name</TableHead>
-                    <TableHead className="font-bold text-blue-800 text-center py-4 px-3 min-w-[150px]">Dairy Code</TableHead>
-                    <TableHead className="font-bold text-blue-800 text-center py-4 px-3 min-w-[180px]">Total Feed Cost</TableHead>
+                  <TableRow className="bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 border-b-2 border-blue-200 dark:border-blue-800">
+                    <TableHead className="font-bold text-blue-800 dark:text-blue-300 text-center py-4 px-3 min-w-[120px]">Serial Number</TableHead>
+                    <TableHead className="font-bold text-blue-800 dark:text-blue-300 text-center py-4 px-3 min-w-[200px]">Farmer's Name</TableHead>
+                    <TableHead className="font-bold text-blue-800 dark:text-blue-300 text-center py-4 px-3 min-w-[150px]">Dairy Code</TableHead>
+                    <TableHead className="font-bold text-blue-800 dark:text-blue-300 text-center py-4 px-3 min-w-[180px]">Total Feed Cost</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {reportData.farmers.map((farmer, index) => (
                     <TableRow 
                       key={farmer.farmerId} 
-                      className={`hover:bg-blue-50/50 transition-all duration-200 ${
-                        index % 2 === 0 ? 'bg-white' : 'bg-blue-25/30'
-                      } border-b border-gray-100`}
+                      className={`hover:bg-blue-50/50 dark:hover:bg-blue-950/20 transition-all duration-200 ${
+                        index % 2 === 0 ? 'bg-card' : 'bg-blue-50/20 dark:bg-blue-950/10'
+                      } border-b border-border`}
                     >
                       <TableCell className="text-center py-4 px-3">
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-blue-100 text-blue-800 border border-blue-200">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
                           {farmer.serialNumber}
                         </span>
                       </TableCell>
                       <TableCell className="text-center py-4 px-3">
                         <div className="flex items-center justify-center gap-2">
-                          <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                          <span className="font-semibold text-gray-800">{farmer.farmerName}</span>
+                          <div className="w-2 h-2 rounded-full bg-green-500 dark:bg-green-400"></div>
+                          <span className="font-semibold text-foreground">{farmer.farmerName}</span>
                         </div>
                       </TableCell>
                       <TableCell className="text-center py-4 px-3">
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-purple-100 text-purple-800 border border-purple-200">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
                           {farmer.dairyCode}
                         </span>
                       </TableCell>
                       <TableCell className="text-center py-4 px-3">
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800 border border-green-200">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 border border-green-200 dark:border-green-800">
                           ₹{Number(farmer.totalFeedCost).toLocaleString()}
                         </span>
                       </TableCell>
                     </TableRow>
                   ))}
                   {/* Grand Total Row */}
-                  <TableRow className="bg-gradient-to-r from-green-100 to-emerald-100 border-t-4 border-green-300 font-bold">
+                  <TableRow className="bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 border-t-4 border-green-300 dark:border-green-700 font-bold">
                     <TableCell className="text-center py-6 px-3" colSpan={3}>
                       <div className="flex items-center justify-center gap-2">
-                        <Calculator className="size-5 text-green-700" />
-                        <span className="text-lg text-green-800">GRAND TOTAL</span>
+                        <Calculator className="size-5 text-green-700 dark:text-green-400" />
+                        <span className="text-lg text-green-800 dark:text-green-300">GRAND TOTAL</span>
                       </div>
                     </TableCell>
                     <TableCell className="text-center py-6 px-3">
-                      <span className="inline-flex items-center px-4 py-2 rounded-full text-lg font-bold bg-green-200 text-green-900 border-2 border-green-300">
+                      <span className="inline-flex items-center px-4 py-2 rounded-full text-lg font-bold bg-green-200 dark:bg-green-900/50 text-green-900 dark:text-green-200 border-2 border-green-300 dark:border-green-700">
                         ₹{reportData.grandTotal.toLocaleString()}
                       </span>
                     </TableCell>

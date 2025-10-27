@@ -431,11 +431,11 @@ export default function Reports() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-3 md:grid-cols-2">
-            <select value={farmerId} onChange={(e)=>setFarmerId(e.target.value)} className="h-10 rounded-md border border-input bg-background px-3 text-sm">
+            <select value={farmerId} onChange={(e)=>setFarmerId(e.target.value)} className="h-10 rounded-md border border-input bg-background text-foreground px-3 text-sm">
               <option value="">All Farmers</option>
               {farmers.map((f:any)=> (<option key={f.id} value={f.id}>{f.fullName} ({f.code})</option>))}
             </select>
-            <select value={adminId} onChange={(e)=>setAdminId(e.target.value)} className="h-10 rounded-md border border-input bg-background px-3 text-sm">
+            <select value={adminId} onChange={(e)=>setAdminId(e.target.value)} className="h-10 rounded-md border border-input bg-background text-foreground px-3 text-sm">
               <option value="">All Admins</option>
               {admins?.map((a:any)=> (<option key={a.id} value={a.id}>{a.name}</option>))}
             </select>
@@ -536,16 +536,16 @@ export default function Reports() {
 
         {/* Transaction Details */}
         <Card className="mt-6 border-0 shadow-xl">
-          <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50">
+          <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20">
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="flex items-center gap-3 text-xl">
-                  <div className="p-2 rounded-lg bg-blue-100">
-                    <FileText className="size-5 text-blue-600" />
+                  <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/50">
+                    <FileText className="size-5 text-blue-600 dark:text-blue-400" />
                   </div>
                   Transaction Details
                 </CardTitle>
-                <CardDescription className="text-gray-600 font-medium">Complete list of approved requests in selected period</CardDescription>
+                <CardDescription className="font-medium">Complete list of approved requests in selected period</CardDescription>
               </div>
               <Button
                 variant="outline"
@@ -561,16 +561,16 @@ export default function Reports() {
             <div className="overflow-x-auto">
               <Table className="min-w-full">
                 <TableHeader>
-                  <TableRow className="bg-gradient-to-r from-blue-100 to-indigo-100 border-b-2 border-blue-200">
-                    <TableHead className="font-bold text-blue-800 text-center py-4 px-3 min-w-[140px]">Farmer Name</TableHead>
-                    <TableHead className="font-bold text-blue-800 text-center py-4 px-3 min-w-[100px]">Dairy Code</TableHead>
-                    <TableHead className="font-bold text-blue-800 text-center py-4 px-3 min-w-[120px]">Feed Name</TableHead>
-                    <TableHead className="font-bold text-blue-800 text-center py-4 px-3 min-w-[110px]">Selling Price</TableHead>
-                    <TableHead className="font-bold text-blue-800 text-center py-4 px-3 min-w-[100px]">Quantity</TableHead>
-                    <TableHead className="font-bold text-blue-800 text-center py-4 px-3 min-w-[120px]">Total Price</TableHead>
-                    <TableHead className="font-bold text-blue-800 text-center py-4 px-3 min-w-[120px]">Approved By</TableHead>
-                    <TableHead className="font-bold text-blue-800 text-center py-4 px-3 min-w-[140px]">Approved At</TableHead>
-                    <TableHead className="font-bold text-blue-800 text-center py-4 px-3 min-w-[120px]">Total Profit</TableHead>
+                  <TableRow className="bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 border-b-2 border-blue-200 dark:border-blue-800">
+                    <TableHead className="font-bold text-blue-800 dark:text-blue-300 text-center py-4 px-3 min-w-[140px]">Farmer Name</TableHead>
+                    <TableHead className="font-bold text-blue-800 dark:text-blue-300 text-center py-4 px-3 min-w-[100px]">Dairy Code</TableHead>
+                    <TableHead className="font-bold text-blue-800 dark:text-blue-300 text-center py-4 px-3 min-w-[120px]">Feed Name</TableHead>
+                    <TableHead className="font-bold text-blue-800 dark:text-blue-300 text-center py-4 px-3 min-w-[110px]">Selling Price</TableHead>
+                    <TableHead className="font-bold text-blue-800 dark:text-blue-300 text-center py-4 px-3 min-w-[100px]">Quantity</TableHead>
+                    <TableHead className="font-bold text-blue-800 dark:text-blue-300 text-center py-4 px-3 min-w-[120px]">Total Price</TableHead>
+                    <TableHead className="font-bold text-blue-800 dark:text-blue-300 text-center py-4 px-3 min-w-[120px]">Approved By</TableHead>
+                    <TableHead className="font-bold text-blue-800 dark:text-blue-300 text-center py-4 px-3 min-w-[140px]">Approved At</TableHead>
+                    <TableHead className="font-bold text-blue-800 dark:text-blue-300 text-center py-4 px-3 min-w-[120px]">Total Profit</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -587,50 +587,50 @@ export default function Reports() {
                     return (
                       <TableRow 
                         key={r.id} 
-                        className={`hover:bg-blue-50/50 transition-all duration-200 ${
-                          index % 2 === 0 ? 'bg-white' : 'bg-blue-25/30'
-                        } border-b border-gray-100`}
+                        className={`hover:bg-blue-50/50 dark:hover:bg-blue-950/20 transition-all duration-200 ${
+                          index % 2 === 0 ? 'bg-card' : 'bg-blue-50/20 dark:bg-blue-950/10'
+                        } border-b border-border`}
                       >
                         <TableCell className="text-center py-4 px-3">
                           <div className="flex items-center justify-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                            <span className="font-semibold text-gray-800">{f?.fullName}</span>
+                            <div className="w-2 h-2 rounded-full bg-blue-500 dark:bg-blue-400"></div>
+                            <span className="font-semibold">{f?.fullName}</span>
                           </div>
                         </TableCell>
                         <TableCell className="text-center py-4 px-3">
-                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-blue-100 text-blue-800 border border-blue-200">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
                             {f?.code}
                           </span>
                         </TableCell>
                         <TableCell className="text-center py-4 px-3">
-                          <span className="font-medium text-gray-800">{s?.name}</span>
+                          <span className="font-medium">{s?.name}</span>
                         </TableCell>
                         <TableCell className="text-center py-4 px-3">
-                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800 border border-green-200">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 border border-green-200 dark:border-green-800">
                             ₹{sellingPrice}
                           </span>
                         </TableCell>
                         <TableCell className="text-center py-4 px-3">
-                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-purple-100 text-purple-800 border border-purple-200">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
                             {r.qtyBags} bags
                           </span>
                         </TableCell>
                         <TableCell className="text-center py-4 px-3">
-                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800 border border-yellow-200">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 border border-yellow-200 dark:border-yellow-800">
                             ₹{totalPrice.toLocaleString()}
                           </span>
                         </TableCell>
                         <TableCell className="text-center py-4 px-3">
-                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-indigo-100 text-indigo-800 border border-indigo-200">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
                             {r.approvedBy}
                           </span>
                         </TableCell>
                         <TableCell className="text-center py-4 px-3">
                           <div className="space-y-1">
-                            <div className="text-sm font-medium text-gray-700">
+                            <div className="text-sm font-medium text-foreground">
                               {new Date(r.approvedAt!).toLocaleDateString('en-IN')}
                             </div>
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-muted-foreground">
                               {new Date(r.approvedAt!).toLocaleTimeString('en-IN')}
                             </div>
                           </div>
@@ -638,8 +638,8 @@ export default function Reports() {
                         <TableCell className="text-center py-4 px-3">
                           <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold border ${
                             totalProfit >= 0 
-                              ? 'bg-emerald-100 text-emerald-800 border-emerald-200' 
-                              : 'bg-red-100 text-red-800 border-red-200'
+                              ? 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800' 
+                              : 'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800'
                           }`}>
                             ₹{totalProfit.toLocaleString()}
                           </span>

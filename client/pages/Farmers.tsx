@@ -92,11 +92,11 @@ export default function Farmers() {
         <div className="flex gap-2 flex-1 min-w-0">
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground size-4" />
-            <Input 
+              <Input 
               placeholder="Search by name, code, or mobile..." 
               value={q} 
               onChange={(e)=>{setQ(e.target.value); setPage(1);}} 
-              className="pl-10 h-11 border-gray-200 focus:border-green-500 focus:ring-green-500 transition-all duration-200 rounded-xl" 
+              className="pl-10 h-11 transition-all duration-200 rounded-xl" 
             />
           </div>
         </div>
@@ -105,20 +105,20 @@ export default function Farmers() {
             <DialogTrigger asChild>
               <Button 
                 onClick={() => { setEditing(null); setIsDialogOpen(true); }} 
-                className="gap-2 bg-green-600 hover:bg-green-700 h-11 px-6 transition-all duration-200 rounded-xl"
+                className="gap-2 bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 h-11 px-6 transition-all duration-200 rounded-xl"
               >
                 <UserPlus className="size-4" />
                 Add Farmer
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-lg rounded-2xl shadow-lg bg-white">
+            <DialogContent className="max-w-lg rounded-2xl shadow-lg">
               <DialogHeader className="pb-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-green-100">
-                      <UserPlus className="size-5 text-green-600" />
+                    <div className="p-2 rounded-lg bg-green-100 dark:bg-green-900/50">
+                      <UserPlus className="size-5 text-green-600 dark:text-green-400" />
                     </div>
-                    <DialogTitle className="text-lg font-semibold text-gray-900">
+                    <DialogTitle className="text-lg font-semibold">
                       {editing?.id ? "Edit Farmer" : "Add New Farmer"}
                     </DialogTitle>
                   </div>
@@ -126,7 +126,7 @@ export default function Farmers() {
                     variant="ghost"
                     size="sm"
                     onClick={() => { setEditing(null); setIsDialogOpen(false); }}
-                    className="h-8 w-8 p-0 hover:bg-gray-100 rounded-full"
+                    className="h-8 w-8 p-0 hover:bg-secondary rounded-full"
                   >
                     <X className="size-4" />
                   </Button>
@@ -135,21 +135,21 @@ export default function Farmers() {
               <form onSubmit={onSave} className="space-y-4">
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                      Full Name <span className="text-red-500">*</span>
+                    <label className="block text-sm font-medium text-foreground mb-1.5">
+                      Full Name <span className="text-red-500 dark:text-red-400">*</span>
                     </label>
                     <Input 
                       name="fullName" 
                       required 
                       defaultValue={editing?.fullName||""} 
-                      className="h-11 border-gray-200 focus:border-green-500 focus:ring-green-500 transition-all duration-200 rounded-xl"
+                      className="h-11 transition-all duration-200 rounded-xl"
                       placeholder="Enter farmer's full name"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                      Mobile Number <span className="text-red-500">*</span>
+                    <label className="block text-sm font-medium text-foreground mb-1.5">
+                      Mobile Number <span className="text-red-500 dark:text-red-400">*</span>
                     </label>
                     <Input 
                       name="mobile" 
@@ -158,46 +158,46 @@ export default function Farmers() {
                       maxLength={10} 
                       required 
                       defaultValue={editing?.mobile||""} 
-                      className="h-11 border-gray-200 focus:border-green-500 focus:ring-green-500 transition-all duration-200 rounded-xl"
+                      className="h-11 transition-all duration-200 rounded-xl"
                       placeholder="Enter 10-digit mobile number"
                     />
                   </div>
                   
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                        Dairy Code <span className="text-red-500">*</span>
+                      <label className="block text-sm font-medium text-foreground mb-1.5">
+                        Dairy Code <span className="text-red-500 dark:text-red-400">*</span>
                       </label>
                       <Input 
                         name="code" 
                         required 
                         defaultValue={editing?.code||""} 
-                        className="h-11 border-gray-200 focus:border-green-500 focus:ring-green-500 transition-all duration-200 rounded-xl"
+                        className="h-11 transition-all duration-200 rounded-xl"
                         placeholder="e.g., DK-1023"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                      <label className="block text-sm font-medium text-foreground mb-1.5">
                         Email Address
                       </label>
                       <Input 
                         name="email" 
                         type="email"
                         defaultValue={editing?.email||""} 
-                        className="h-11 border-gray-200 focus:border-green-500 focus:ring-green-500 transition-all duration-200 rounded-xl"
+                        className="h-11 transition-all duration-200 rounded-xl"
                         placeholder="farmer@example.com"
                       />
                     </div>
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    <label className="block text-sm font-medium text-foreground mb-1.5">
                       Account Status
                     </label>
                     <select 
                       name="status" 
                       defaultValue={editing?.status||"Active"} 
-                      className="w-full h-11 rounded-xl border border-gray-200 bg-white px-4 text-sm focus:border-green-500 focus:ring-green-500 transition-all duration-200"
+                      className="w-full h-11 rounded-xl border border-input bg-background text-foreground px-4 text-sm transition-all duration-200"
                     >
                       <option value="Active">🟢 Active - Can request feed</option>
                       <option value="Inactive">🔴 Inactive - Cannot request feed</option>
@@ -211,13 +211,13 @@ export default function Farmers() {
                       type="button" 
                       variant="outline" 
                       onClick={() => { setEditing(null); setIsDialogOpen(false); }}
-                      className="flex-1 h-11 border-gray-200 hover:bg-gray-50 transition-all duration-200 rounded-xl"
+                      className="flex-1 h-11 transition-all duration-200 rounded-xl"
                     >
                       Cancel
                     </Button>
                     <Button 
                       type="submit" 
-                      className="flex-1 h-11 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 rounded-xl"
+                      className="flex-1 h-11 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 dark:from-green-700 dark:to-green-800 dark:hover:from-green-800 dark:hover:to-green-900 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 rounded-xl"
                     >
                       <UserPlus className="size-4 mr-2" />
                       {editing?.id ? "Update Farmer" : "Save Farmer"}
@@ -230,7 +230,7 @@ export default function Farmers() {
           <Button 
             variant="outline" 
             onClick={()=>window.print()}
-            className="h-11 px-6 border-gray-200 hover:bg-gray-50 transition-all duration-200 rounded-xl"
+            className="h-11 px-6 transition-all duration-200 rounded-xl"
           >
             Export PDF
           </Button>
@@ -299,17 +299,17 @@ export default function Farmers() {
                     </TableRow>
                   ) : (
                     active.map((f)=> (
-                      <TableRow key={f.id} className="border-l-4 border-l-green-500 hover:bg-green-50/50 transition-colors duration-200">
+                      <TableRow key={f.id} className="border-l-4 border-l-green-500 dark:border-l-green-400 hover:bg-green-50/50 dark:hover:bg-green-950/20 transition-colors duration-200">
                         <TableCell className="font-semibold">{f.fullName}</TableCell>
                         <TableCell className="text-muted-foreground font-mono text-sm">{f.mobile}</TableCell>
                         <TableCell>
-                          <span className="inline-flex items-center px-2 py-1 rounded-md bg-blue-100 text-blue-700 font-mono text-xs font-bold">
+                          <span className="inline-flex items-center px-2 py-1 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-mono text-xs font-bold">
                             {f.code}
                           </span>
                         </TableCell>
                         <TableCell className="text-muted-foreground text-sm">{f.email || '—'}</TableCell>
                         <TableCell>
-                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800 border border-green-200">
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 border border-green-200 dark:border-green-800">
                             <UserCheck className="size-3" />
                             Active
                           </span>
@@ -383,17 +383,17 @@ export default function Farmers() {
                     </TableRow>
                   ) : (
                     inactive.map((f)=> (
-                      <TableRow key={f.id} className="border-l-4 border-l-red-500 hover:bg-red-50/30 transition-colors duration-200">
+                      <TableRow key={f.id} className="border-l-4 border-l-red-500 dark:border-l-red-400 hover:bg-red-50/30 dark:hover:bg-red-950/20 transition-colors duration-200">
                         <TableCell className="font-semibold opacity-75">{f.fullName}</TableCell>
                         <TableCell className="text-muted-foreground font-mono text-sm opacity-75">{f.mobile}</TableCell>
                         <TableCell>
-                          <span className="inline-flex items-center px-2 py-1 rounded-md bg-gray-100 text-gray-600 font-mono text-xs font-bold opacity-75">
+                          <span className="inline-flex items-center px-2 py-1 rounded-md bg-secondary text-secondary-foreground font-mono text-xs font-bold opacity-75">
                             {f.code}
                           </span>
                         </TableCell>
                         <TableCell className="text-muted-foreground text-sm opacity-75">{f.email || '—'}</TableCell>
                         <TableCell>
-                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800 border border-red-200">
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800">
                             <UserX className="size-3" />
                             Inactive
                           </span>

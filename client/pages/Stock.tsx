@@ -456,7 +456,7 @@ export default function Stock() {
               placeholder="Search by feed name or type..." 
               value={q} 
               onChange={(e)=>setQ(e.target.value)} 
-              className="pl-10 h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 rounded-xl" 
+              className="pl-10 h-11 transition-all duration-200 rounded-xl" 
             />
           </div>
         </div>
@@ -479,20 +479,20 @@ export default function Stock() {
             <DialogTrigger asChild>
               <Button 
                 onClick={()=>setIsAddDialogOpen(true)} 
-                className="gap-2 bg-blue-600 hover:bg-blue-700 h-11 px-6 transition-all duration-200 rounded-xl"
+                className="gap-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 h-11 px-6 transition-all duration-200 rounded-xl"
               >
                 <Plus className="size-4" />
                 Add Feed
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-lg rounded-2xl shadow-lg bg-white">
+            <DialogContent className="max-w-lg rounded-2xl shadow-lg">
               <DialogHeader className="pb-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-blue-100">
-                      <Package className="size-5 text-blue-600" />
+                    <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/50">
+                      <Package className="size-5 text-blue-600 dark:text-blue-400" />
                     </div>
-                    <DialogTitle className="text-lg font-semibold text-gray-900">
+                    <DialogTitle className="text-lg font-semibold">
                       {editing?.id ? "Edit Feed" : "Add New Feed"}
                     </DialogTitle>
                   </div>
@@ -511,7 +511,7 @@ export default function Stock() {
                         sellingPrice: 0,
                       });
                     }}
-                    className="h-8 w-8 p-0 hover:bg-gray-100 rounded-full"
+                    className="h-8 w-8 p-0 hover:bg-secondary rounded-full"
                   >
                     <X className="size-4" />
                   </Button>
@@ -521,24 +521,24 @@ export default function Stock() {
                 <div className="space-y-3">
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1.5">Feed Name <span className="text-red-500">*</span></label>
+                      <label className="block text-sm font-medium text-foreground mb-1.5">Feed Name <span className="text-red-500 dark:text-red-400">*</span></label>
                       <Input 
                         name="name" 
                         required 
                         value={formData.name}
                         onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                        className="h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 rounded-xl"
+                        className="h-11 transition-all duration-200 rounded-xl"
                         placeholder="e.g., Maize, Cottonseed" 
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1.5">Feed Type <span className="text-red-500">*</span></label>
+                      <label className="block text-sm font-medium text-foreground mb-1.5">Feed Type <span className="text-red-500 dark:text-red-400">*</span></label>
                       <Input 
                         name="type" 
                         required 
                         value={formData.type}
                         onChange={(e) => setFormData(prev => ({ ...prev, type: e.target.value }))}
-                        className="h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 rounded-xl"
+                        className="h-11 transition-all duration-200 rounded-xl"
                         placeholder="e.g., Grain, Oilcake" 
                       />
                     </div>
@@ -546,7 +546,7 @@ export default function Stock() {
                   
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1.5">Quantity (bags) <span className="text-red-500">*</span></label>
+                      <label className="block text-sm font-medium text-foreground mb-1.5">Quantity (bags) <span className="text-red-500 dark:text-red-400">*</span></label>
                       <Input 
                         name="quantityBags" 
                         type="number" 
@@ -554,12 +554,12 @@ export default function Stock() {
                         required 
                         value={formData.quantityBags || ""}
                         onChange={(e) => setFormData(prev => ({ ...prev, quantityBags: Number(e.target.value) || 0 }))}
-                        className="h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 rounded-xl"
+                        className="h-11 transition-all duration-200 rounded-xl"
                         placeholder="Enter quantity"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1.5">Bag Weight (kg) <span className="text-red-500">*</span></label>
+                      <label className="block text-sm font-medium text-foreground mb-1.5">Bag Weight (kg) <span className="text-red-500 dark:text-red-400">*</span></label>
                       <Input 
                         name="bagWeight" 
                         type="number" 
@@ -568,7 +568,7 @@ export default function Stock() {
                         required 
                         value={formData.bagWeight || ""}
                         onChange={(e) => setFormData(prev => ({ ...prev, bagWeight: Number(e.target.value) || 0 }))}
-                        className="h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 rounded-xl"
+                        className="h-11 transition-all duration-200 rounded-xl"
                         placeholder="50" 
                       />
                     </div>
@@ -576,7 +576,7 @@ export default function Stock() {
                   
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1.5">Purchase Price (₹ per bag) <span className="text-red-500">*</span></label>
+                      <label className="block text-sm font-medium text-foreground mb-1.5">Purchase Price (₹ per bag) <span className="text-red-500 dark:text-red-400">*</span></label>
                       <Input 
                         name="purchasePrice" 
                         type="number" 
@@ -585,12 +585,12 @@ export default function Stock() {
                         required 
                         value={formData.purchasePrice}
                         onChange={(e) => setFormData(prev => ({ ...prev, purchasePrice: Number(e.target.value) }))}
-                        className="h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 rounded-xl"
+                        className="h-11 transition-all duration-200 rounded-xl"
                         placeholder="Enter purchase price"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1.5">Selling Price (₹ per bag) <span className="text-red-500">*</span></label>
+                      <label className="block text-sm font-medium text-foreground mb-1.5">Selling Price (₹ per bag) <span className="text-red-500 dark:text-red-400">*</span></label>
                       <Input 
                         name="sellingPrice" 
                         type="number" 
@@ -599,7 +599,7 @@ export default function Stock() {
                         required 
                         value={formData.sellingPrice || ""}
                         onChange={(e) => setFormData(prev => ({ ...prev, sellingPrice: Number(e.target.value) || 0 }))}
-                        className="h-11 border-gray-200 focus:border-blue-500 focus:ring-blue-500 transition-all duration-200 rounded-xl"
+                        className="h-11 transition-all duration-200 rounded-xl"
                         placeholder="Enter selling price"
                       />
                     </div>
@@ -646,15 +646,15 @@ export default function Stock() {
         </div>
       </div>
 
-      <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-green-50 via-white to-blue-50">
+      <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-green-50 via-card to-blue-50 dark:from-green-950/20 dark:via-card dark:to-blue-950/20">
         <CardHeader className="pb-4">
           <CardTitle className="flex items-center gap-3 text-xl">
-            <div className="p-3 rounded-xl bg-gradient-to-br from-green-100 to-blue-100">
-              <Package className="size-6 text-green-600" />
+            <div className="p-3 rounded-xl bg-gradient-to-br from-green-100 to-blue-100 dark:from-green-900/50 dark:to-blue-900/50">
+              <Package className="size-6 text-green-600 dark:text-green-400" />
             </div>
             Stock Summary
           </CardTitle>
-          <CardDescription className="text-gray-600 font-medium">
+          <CardDescription className="font-medium">
             Total items: {stock.length} • Low stock threshold: {LOW_STOCK_THRESHOLD} bags • 
             Total weight: {(stock.reduce((a,s)=>a+(s.quantityBags * s.bagWeight),0)/1000).toFixed(1)} tons
           </CardDescription>
@@ -685,16 +685,16 @@ export default function Stock() {
           <div className="overflow-x-auto">
             <Table className="min-w-full">
               <TableHeader>
-                <TableRow className="bg-gradient-to-r from-green-100 to-blue-100 border-b-2 border-green-200">
-                  <TableHead className="font-bold text-green-800 text-center py-4 w-[180px]">Feed Name</TableHead>
-                  <TableHead className="font-bold text-green-800 text-center py-4 w-[120px]">Type</TableHead>
-                  <TableHead className="font-bold text-green-800 text-center py-4 w-[120px]">Quantity</TableHead>
-                  <TableHead className="font-bold text-green-800 text-center py-4 w-[120px]">Bag Weight</TableHead>
-                  <TableHead className="font-bold text-green-800 text-center py-4 w-[140px]">Purchase Price</TableHead>
-                  <TableHead className="font-bold text-green-800 text-center py-4 w-[140px]">Selling Price</TableHead>
-                  <TableHead className="font-bold text-green-800 text-center py-4 w-[160px]">Last Updated</TableHead>
-                  <TableHead className="font-bold text-green-800 text-center py-4 w-[120px]">Updated By</TableHead>
-                  <TableHead className="font-bold text-green-800 text-center py-4 w-[200px]">Actions</TableHead>
+                <TableRow className="bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/30 dark:to-blue-900/30 border-b-2 border-green-200 dark:border-green-800">
+                  <TableHead className="font-bold text-green-800 dark:text-green-300 text-center py-4 w-[180px]">Feed Name</TableHead>
+                  <TableHead className="font-bold text-green-800 dark:text-green-300 text-center py-4 w-[120px]">Type</TableHead>
+                  <TableHead className="font-bold text-green-800 dark:text-green-300 text-center py-4 w-[120px]">Quantity</TableHead>
+                  <TableHead className="font-bold text-green-800 dark:text-green-300 text-center py-4 w-[120px]">Bag Weight</TableHead>
+                  <TableHead className="font-bold text-green-800 dark:text-green-300 text-center py-4 w-[140px]">Purchase Price</TableHead>
+                  <TableHead className="font-bold text-green-800 dark:text-green-300 text-center py-4 w-[140px]">Selling Price</TableHead>
+                  <TableHead className="font-bold text-green-800 dark:text-green-300 text-center py-4 w-[160px]">Last Updated</TableHead>
+                  <TableHead className="font-bold text-green-800 dark:text-green-300 text-center py-4 w-[120px]">Updated By</TableHead>
+                  <TableHead className="font-bold text-green-800 dark:text-green-300 text-center py-4 w-[200px]">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -726,58 +726,58 @@ export default function Stock() {
                     return (
                       <TableRow 
                         key={s.id} 
-                        className={`hover:bg-green-50/50 transition-all duration-200 ${
-                          index % 2 === 0 ? 'bg-white' : 'bg-green-25/30'
-                        } border-b border-gray-100 ${isLowStock ? 'bg-red-50/50' : ''}`}
+                        className={`hover:bg-green-50/50 dark:hover:bg-green-950/20 transition-all duration-200 ${
+                          index % 2 === 0 ? 'bg-card' : 'bg-green-50/20 dark:bg-green-950/10'
+                        } border-b border-border ${isLowStock ? 'bg-red-50/50 dark:bg-red-950/20' : ''}`}
                       >
                         <TableCell className="text-center py-4 align-middle">
                           <div className="flex items-center justify-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0"></div>
-                            <span className="font-semibold text-gray-800 truncate">{s.name}</span>
+                            <div className="w-2 h-2 rounded-full bg-green-500 dark:bg-green-400 flex-shrink-0"></div>
+                            <span className="font-semibold truncate">{s.name}</span>
                           </div>
                         </TableCell>
                         <TableCell className="text-center py-4 align-middle">
-                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-bold bg-blue-100 text-blue-800 border border-blue-200 w-full">
+                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-bold bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800 w-full">
                             {s.type}
                           </span>
                         </TableCell>
                         <TableCell className="text-center py-4 align-middle">
                           <span className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-semibold border w-full ${
                             isLowStock 
-                              ? 'bg-red-100 text-red-800 border-red-200' 
-                              : 'bg-green-100 text-green-800 border-green-200'
+                              ? 'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800' 
+                              : 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800'
                           }`}>
                             {s.quantityBags} bags
                             {isLowStock && <AlertTriangle className="inline size-3 ml-1 flex-shrink-0" />}
                           </span>
                         </TableCell>
                         <TableCell className="text-center py-4 align-middle">
-                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-semibold bg-purple-100 text-purple-800 border border-purple-200 w-full">
+                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-semibold bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800 w-full">
                             {s.bagWeight} kg
                           </span>
                         </TableCell>
                         <TableCell className="text-center py-4 align-middle">
-                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800 border border-yellow-200 w-full">
+                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 border border-yellow-200 dark:border-yellow-800 w-full">
                             ₹{s.purchasePrice.toLocaleString()}
                           </span>
                         </TableCell>
                         <TableCell className="text-center py-4 align-middle">
-                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200 w-full">
+                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-semibold bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 w-full">
                             ₹{s.sellingPrice.toLocaleString()}
                           </span>
                         </TableCell>
                         <TableCell className="text-center py-4 align-middle">
                           <div className="space-y-1">
-                            <div className="text-sm font-medium text-gray-700">
+                            <div className="text-sm font-medium text-foreground">
                               {s.lastUpdated ? new Date(s.lastUpdated).toLocaleDateString('en-IN') : 'N/A'}
                             </div>
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-muted-foreground">
                               {s.lastUpdated ? new Date(s.lastUpdated).toLocaleTimeString('en-IN') : 'N/A'}
                             </div>
                           </div>
                         </TableCell>
                         <TableCell className="text-center py-4 align-middle">
-                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-semibold bg-indigo-100 text-indigo-800 border border-indigo-200 w-full">
+                          <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-semibold bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 w-full">
                             {s.updatedBy || 'System'}
                           </span>
                         </TableCell>

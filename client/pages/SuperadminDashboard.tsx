@@ -471,40 +471,40 @@ export default function SuperadminDashboard() {
         {kpis.map((k, index) => {
           const IconComponent = k.icon;
           const gradientColors = [
-            "from-blue-50 to-white",
-            "from-green-50 to-white", 
-            "from-purple-50 to-white",
-            "from-orange-50 to-white",
-            "from-purple-50 to-white",
-            "from-emerald-50 to-white"
+            "from-blue-50 to-background dark:from-blue-950/20 dark:to-background",
+            "from-green-50 to-background dark:from-green-950/20 dark:to-background", 
+            "from-purple-50 to-background dark:from-purple-950/20 dark:to-background",
+            "from-orange-50 to-background dark:from-orange-950/20 dark:to-background",
+            "from-purple-50 to-background dark:from-purple-950/20 dark:to-background",
+            "from-emerald-50 to-background dark:from-emerald-950/20 dark:to-background"
           ];
           const bgColors = [
-            "bg-blue-100",
-            "bg-green-100",
-            "bg-purple-100", 
-            "bg-orange-100",
-            "bg-purple-100",
-            "bg-emerald-100"
+            "bg-blue-100 dark:bg-blue-900/50",
+            "bg-green-100 dark:bg-green-900/50",
+            "bg-purple-100 dark:bg-purple-900/50", 
+            "bg-orange-100 dark:bg-orange-900/50",
+            "bg-purple-100 dark:bg-purple-900/50",
+            "bg-emerald-100 dark:bg-emerald-900/50"
           ];
           const textColors = [
-            "text-blue-600",
-            "text-green-600",
-            "text-purple-600",
-            "text-orange-600",
-            "text-purple-600",
-            "text-emerald-600"
+            "text-blue-600 dark:text-blue-400",
+            "text-green-600 dark:text-green-400",
+            "text-purple-600 dark:text-purple-400",
+            "text-orange-600 dark:text-orange-400",
+            "text-purple-600 dark:text-purple-400",
+            "text-emerald-600 dark:text-emerald-400"
           ];
           return (
             <Card key={k.title} className={`border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br ${gradientColors[index]} hover-lift animate-scale-in`} style={{animationDelay: `${index * 0.1}s`}}>
               <CardHeader className="pb-2 pt-3 px-3">
-                <div className="flex items-center gap-1.5 text-xs font-medium text-gray-600 mb-2">
+                <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground mb-2">
                   <div className={`p-1.5 rounded-md ${bgColors[index]} transition-smooth`}>
                     <IconComponent className={`size-3 ${textColors[index]}`}/>
                   </div>
                   {k.title}
                 </div>
-                <CardTitle className="text-2xl font-bold text-gray-900 mt-1">{k.value}</CardTitle>
-                <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
+                <CardTitle className="text-2xl font-bold text-foreground mt-1">{k.value}</CardTitle>
+                <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
                   <TrendingUp className="size-2.5"/>
                   {k.sub}
                 </p>
@@ -515,15 +515,15 @@ export default function SuperadminDashboard() {
       </section>
 
       <section className="space-y-6">
-        <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-emerald-50 via-white to-emerald-50">
+        <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-emerald-50 via-card to-emerald-50 dark:from-emerald-950/20 dark:via-card dark:to-emerald-950/20">
           <CardHeader className="pb-4">
             <CardTitle className="flex items-center gap-3 text-xl">
-              <div className="p-3 rounded-xl bg-emerald-100">
-                <CalendarIcon className="size-6 text-emerald-600" />
+              <div className="p-3 rounded-xl bg-emerald-100 dark:bg-emerald-900/50">
+                <CalendarIcon className="size-6 text-emerald-600 dark:text-emerald-400" />
               </div>
               Today Summary
             </CardTitle>
-            <CardDescription className="text-gray-600 font-medium">{new Date().toLocaleDateString()}</CardDescription>
+            <CardDescription className="font-medium">{new Date().toLocaleDateString()}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-2 text-sm">
@@ -602,27 +602,27 @@ export default function SuperadminDashboard() {
                   const isLow = s.quantityBags < 20;
                   const isMedium = s.quantityBags >= 20 && s.quantityBags < 50;
                   return (
-                    <TableRow key={s.id} className="hover:bg-blue-50/50 transition-colors duration-200">
+                    <TableRow key={s.id} className="hover:bg-blue-50/50 dark:hover:bg-blue-950/20 transition-colors duration-200">
                       <TableCell className="font-semibold">{s.name}</TableCell>
                       <TableCell>
-                        <span className="inline-flex items-center px-2 py-1 rounded-md bg-purple-100 text-purple-700 text-xs font-medium">
+                        <span className="inline-flex items-center px-2 py-1 rounded-md bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 text-xs font-medium">
                           {s.type}
                         </span>
                       </TableCell>
                       <TableCell className="text-right">
                         <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border ${
                           isLow
-                            ? "bg-red-100 text-red-800 border-red-200" 
+                            ? "bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800" 
                             : isMedium
-                            ? "bg-yellow-100 text-yellow-800 border-yellow-200"
-                            : "bg-green-100 text-green-800 border-green-200"
+                            ? "bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800"
+                            : "bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800"
                         }`}>
                           {s.quantityBags} bags
                         </span>
                       </TableCell>
                       <TableCell className="text-right font-medium text-primary">{totalWeight} tons</TableCell>
                       <TableCell>
-                        <span className="inline-flex items-center px-2 py-1 rounded-md bg-blue-100 text-blue-700 text-xs font-medium">
+                        <span className="inline-flex items-center px-2 py-1 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-medium">
                           {s.updatedBy || 'System'}
                         </span>
                       </TableCell>
@@ -640,7 +640,7 @@ export default function SuperadminDashboard() {
                 })}
                 {stock.length === 0 && (
                   <TableRow>
-                    <TableCell colSpan={6} className="text-center py-8 text-gray-500">
+                    <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
                       No stock items found. <Button variant="link" onClick={() => navigate('/stock')} className="p-0 h-auto">Add stock items</Button>
                     </TableCell>
                   </TableRow>
@@ -736,7 +736,7 @@ export default function SuperadminDashboard() {
             </div>
             <Button 
               variant="outline" 
-              className="gap-2 bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300 transition-all duration-200"
+              className="gap-2 transition-all duration-200"
               onClick={() => window.print()}
             >
               <FileText className="size-4"/>
@@ -769,7 +769,7 @@ export default function SuperadminDashboard() {
                   ))
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={6} className="text-center py-8 text-gray-500">
+                    <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
                       No farmer data available for the selected period
                     </TableCell>
                   </TableRow>
@@ -837,15 +837,15 @@ export default function SuperadminDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+        <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-indigo-50 via-card to-purple-50 dark:from-indigo-950/20 dark:via-card dark:to-purple-950/20">
           <CardHeader className="pb-4">
             <CardTitle className="flex items-center gap-3 text-xl">
-              <div className="p-3 rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100">
-                <FileText className="size-6 text-indigo-600" />
+              <div className="p-3 rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/50 dark:to-purple-900/50">
+                <FileText className="size-6 text-indigo-600 dark:text-indigo-400" />
               </div>
               Farmer-wise Feed Request Report
             </CardTitle>
-            <CardDescription className="text-gray-600 font-medium">Detailed feed request history without profit calculations</CardDescription>
+            <CardDescription className="font-medium">Detailed feed request history without profit calculations</CardDescription>
             <div className="mt-6">
               <CompactDateRangePicker
                 startDate={startDate}
@@ -881,12 +881,12 @@ export default function SuperadminDashboard() {
                 });
 
                 return Object.values(farmerMap).map((farmerData) => (
-                  <Card key={farmerData.farmer.id} className="border-l-4 border-l-indigo-500 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-r from-white to-indigo-50/30">
-                    <CardHeader className="pb-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-t-lg">
+                  <Card key={farmerData.farmer.id} className="border-l-4 border-l-indigo-500 dark:border-l-indigo-400 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-r from-card to-indigo-50/30 dark:from-card dark:to-indigo-950/20">
+                    <CardHeader className="pb-3 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30 rounded-t-lg">
                       <div className="flex items-center justify-between">
                         <div>
-                          <CardTitle className="text-lg font-bold text-indigo-800">{farmerData.farmer.fullName}</CardTitle>
-                          <CardDescription className="text-sm mt-1 text-indigo-600 font-medium">Dairy Code: {farmerData.farmer.code}</CardDescription>
+                          <CardTitle className="text-lg font-bold text-indigo-800 dark:text-indigo-300">{farmerData.farmer.fullName}</CardTitle>
+                          <CardDescription className="text-sm mt-1 text-indigo-600 dark:text-indigo-400 font-medium">Dairy Code: {farmerData.farmer.code}</CardDescription>
                         </div>
                         <Button
                           variant="outline"
@@ -903,13 +903,13 @@ export default function SuperadminDashboard() {
                       <div className="overflow-x-auto">
                         <Table className="min-w-full">
                           <TableHeader>
-                            <TableRow className="bg-gradient-to-r from-indigo-100 to-purple-100">
-                              <TableHead className="font-semibold text-indigo-800">Feed Name</TableHead>
-                              <TableHead className="font-semibold text-indigo-800 text-center">Quantity</TableHead>
-                              <TableHead className="font-semibold text-indigo-800 text-center">Feed Rate</TableHead>
-                              <TableHead className="font-semibold text-indigo-800 text-center">Total Bill</TableHead>
-                              <TableHead className="font-semibold text-indigo-800 text-center">Approved Date & Time</TableHead>
-                              <TableHead className="font-semibold text-indigo-800 text-center">Approved By</TableHead>
+                            <TableRow className="bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30">
+                              <TableHead className="font-semibold text-indigo-800 dark:text-indigo-300">Feed Name</TableHead>
+                              <TableHead className="font-semibold text-indigo-800 dark:text-indigo-300 text-center">Quantity</TableHead>
+                              <TableHead className="font-semibold text-indigo-800 dark:text-indigo-300 text-center">Feed Rate</TableHead>
+                              <TableHead className="font-semibold text-indigo-800 dark:text-indigo-300 text-center">Total Bill</TableHead>
+                              <TableHead className="font-semibold text-indigo-800 dark:text-indigo-300 text-center">Approved Date & Time</TableHead>
+                              <TableHead className="font-semibold text-indigo-800 dark:text-indigo-300 text-center">Approved By</TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
@@ -918,40 +918,40 @@ export default function SuperadminDashboard() {
                               // Use historical prices for approved requests
                               const sellingPrice = r.sellingPriceAtApproval || s?.sellingPrice || 0;
                               return (
-                                <TableRow key={r.id} className={`hover:bg-indigo-50/50 transition-colors duration-200 ${index % 2 === 0 ? 'bg-white' : 'bg-indigo-25/30'}`}>
-                                  <TableCell className="font-semibold text-gray-800">
+                                <TableRow key={r.id} className={`hover:bg-indigo-50/50 dark:hover:bg-indigo-950/20 transition-colors duration-200 ${index % 2 === 0 ? 'bg-card' : 'bg-indigo-50/20 dark:bg-indigo-950/10'}`}>
+                                  <TableCell className="font-semibold text-foreground">
                                     <div className="flex items-center gap-2">
-                                      <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
+                                      <div className="w-2 h-2 rounded-full bg-indigo-500 dark:bg-indigo-400"></div>
                                       {s?.name || 'Unknown Feed'}
                                     </div>
                                   </TableCell>
                                   <TableCell className="text-center">
-                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-blue-100 text-blue-800">
+                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300">
                                       {r.qtyBags} bags
                                     </span>
                                   </TableCell>
                                   <TableCell className="text-center">
-                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800">
+                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300">
                                       ₹{sellingPrice}/bag
                                     </span>
                                   </TableCell>
                                   <TableCell className="text-center">
-                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800">
+                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300">
                                       ₹{(sellingPrice * r.qtyBags).toLocaleString()}
                                     </span>
                                   </TableCell>
                                   <TableCell className="text-center">
                                     <div className="space-y-1">
-                                      <div className="text-sm font-medium text-gray-700">
+                                      <div className="text-sm font-medium text-foreground">
                                         {r.approvedAt ? new Date(r.approvedAt).toLocaleDateString('en-IN') : 'N/A'}
                                       </div>
-                                      <div className="text-xs text-gray-500">
+                                      <div className="text-xs text-muted-foreground">
                                         {r.approvedAt ? new Date(r.approvedAt).toLocaleTimeString('en-IN') : 'N/A'}
                                       </div>
                                     </div>
                                   </TableCell>
                                   <TableCell className="text-center">
-                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-purple-100 text-purple-800">
+                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300">
                                       {r.approvedBy || 'System'}
                                     </span>
                                   </TableCell>

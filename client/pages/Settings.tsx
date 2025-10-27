@@ -28,11 +28,11 @@ export default function Settings() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-purple-50 via-white to-purple-50">
+        <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-purple-50 via-card to-purple-50 dark:from-purple-950/20 dark:via-card dark:to-purple-950/20">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <div className="p-2 rounded-lg bg-purple-100">
-                <Palette className="size-5 text-purple-600" />
+              <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/50">
+                <Palette className="size-5 text-purple-600 dark:text-purple-400" />
               </div>
               Theme Preferences
             </CardTitle>
@@ -43,12 +43,12 @@ export default function Settings() {
               <button
                 onClick={() => setTheme("light")}
                 className={`w-full flex items-center justify-between p-4 border-2 rounded-xl hover:bg-muted/50 transition-all duration-200 ${
-                  theme === "light" ? "border-primary bg-primary/5" : "border-border"
+                  theme === "light" ? "border-primary bg-primary/5 dark:bg-primary/10" : "border-border"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-yellow-100">
-                    <Sun className="size-4 text-yellow-600" />
+                  <div className="p-2 rounded-lg bg-yellow-100 dark:bg-yellow-900/50">
+                    <Sun className="size-4 text-yellow-600 dark:text-yellow-400" />
                   </div>
                   <div className="text-left">
                     <div className="text-sm font-medium">Light Mode</div>
@@ -61,12 +61,12 @@ export default function Settings() {
               <button
                 onClick={() => setTheme("dark")}
                 className={`w-full flex items-center justify-between p-4 border-2 rounded-xl hover:bg-muted/50 transition-all duration-200 ${
-                  theme === "dark" ? "border-primary bg-primary/5" : "border-border"
+                  theme === "dark" ? "border-primary bg-primary/5 dark:bg-primary/10" : "border-border"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-slate-800">
-                    <Moon className="size-4 text-slate-100" />
+                  <div className="p-2 rounded-lg bg-slate-800 dark:bg-slate-700">
+                    <Moon className="size-4 text-slate-100 dark:text-slate-200" />
                   </div>
                   <div className="text-left">
                     <div className="text-sm font-medium">Dark Mode</div>
@@ -79,12 +79,12 @@ export default function Settings() {
               <button
                 onClick={() => setTheme("system")}
                 className={`w-full flex items-center justify-between p-4 border-2 rounded-xl hover:bg-muted/50 transition-all duration-200 ${
-                  theme === "system" ? "border-primary bg-primary/5" : "border-border"
+                  theme === "system" ? "border-primary bg-primary/5 dark:bg-primary/10" : "border-border"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-blue-100">
-                    <Monitor className="size-4 text-blue-600" />
+                  <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/50">
+                    <Monitor className="size-4 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div className="text-left">
                     <div className="text-sm font-medium">System</div>
@@ -97,29 +97,29 @@ export default function Settings() {
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-green-50 via-white to-green-50">
+        <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-green-50 via-card to-green-50 dark:from-green-950/20 dark:via-card dark:to-green-950/20">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <div className="p-2 rounded-lg bg-green-100">
-                <User className="size-5 text-green-600" />
+              <div className="p-2 rounded-lg bg-green-100 dark:bg-green-900/50">
+                <User className="size-5 text-green-600 dark:text-green-400" />
               </div>
               Account Information
             </CardTitle>
             <CardDescription>Your current account details</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid gap-2 p-3 rounded-lg bg-white/70 border border-green-100">
-              <div className="text-sm font-medium text-gray-600">Name</div>
+            <div className="grid gap-2 p-3 rounded-lg bg-card/70 dark:bg-card/50 border border-green-100 dark:border-green-900">
+              <div className="text-sm font-medium text-muted-foreground">Name</div>
               <div className="text-base font-semibold">{user?.name}</div>
             </div>
-            <div className="grid gap-2 p-3 rounded-lg bg-white/70 border border-green-100">
-              <div className="text-sm font-medium text-gray-600">Mobile</div>
+            <div className="grid gap-2 p-3 rounded-lg bg-card/70 dark:bg-card/50 border border-green-100 dark:border-green-900">
+              <div className="text-sm font-medium text-muted-foreground">Mobile</div>
               <div className="text-base font-semibold font-mono">{user?.mobile}</div>
             </div>
-            <div className="grid gap-2 p-3 rounded-lg bg-white/70 border border-green-100">
-              <div className="text-sm font-medium text-gray-600">Role</div>
+            <div className="grid gap-2 p-3 rounded-lg bg-card/70 dark:bg-card/50 border border-green-100 dark:border-green-900">
+              <div className="text-sm font-medium text-muted-foreground">Role</div>
               <div className="flex items-center gap-2">
-                <div className="p-2 rounded-lg bg-primary/10">
+                <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/20">
                 <Shield className="size-4 text-primary" />
                 </div>
                 <span className="text-base font-bold capitalize text-primary">{user?.role}</span>
@@ -129,11 +129,11 @@ export default function Settings() {
         </Card>
       </div>
 
-      <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-orange-50 via-white to-orange-50">
+      <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-orange-50 via-card to-orange-50 dark:from-orange-950/20 dark:via-card dark:to-orange-950/20">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <div className="p-2 rounded-lg bg-orange-100">
-              <BellRing className="size-5 text-orange-600" />
+            <div className="p-2 rounded-lg bg-orange-100 dark:bg-orange-900/50">
+              <BellRing className="size-5 text-orange-600 dark:text-orange-400" />
             </div>
             Notification Preferences
           </CardTitle>
@@ -142,8 +142,8 @@ export default function Settings() {
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between p-4 border-2 rounded-xl hover:bg-muted/50 transition-all duration-200">
                 <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-red-100">
-                <AlertTriangle className="size-4 text-red-600" />
+              <div className="p-2 rounded-lg bg-red-100 dark:bg-red-900/50">
+                <AlertTriangle className="size-4 text-red-600 dark:text-red-400" />
                   </div>
                   <div>
                     <div className="text-sm font-medium">Low Stock Alerts</div>
@@ -158,8 +158,8 @@ export default function Settings() {
               
           <div className="flex items-center justify-between p-4 border-2 rounded-xl hover:bg-muted/50 transition-all duration-200">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-blue-100">
-                    <Bell className="size-4 text-blue-600" />
+                  <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/50">
+                    <Bell className="size-4 text-blue-600 dark:text-blue-400" />
                   </div>
                   <div>
                     <div className="text-sm font-medium">New Feed Requests</div>
@@ -174,8 +174,8 @@ export default function Settings() {
               
           <div className="flex items-center justify-between p-4 border-2 rounded-xl hover:bg-muted/50 transition-all duration-200">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-green-100">
-                    <FileText className="size-4 text-green-600" />
+                  <div className="p-2 rounded-lg bg-green-100 dark:bg-green-900/50">
+                    <FileText className="size-4 text-green-600 dark:text-green-400" />
                   </div>
                   <div>
                     <div className="text-sm font-medium">Daily Summary Reports</div>
@@ -190,18 +190,18 @@ export default function Settings() {
           </CardContent>
         </Card>
 
-      <Card className="border-2 border-destructive/20 shadow-lg">
+      <Card className="border-2 border-destructive/20 dark:border-destructive/30 shadow-lg">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-destructive">
-            <div className="p-2 rounded-lg bg-red-100">
-              <LogOut className="size-5 text-red-600" />
+            <div className="p-2 rounded-lg bg-red-100 dark:bg-red-900/50">
+              <LogOut className="size-5 text-red-600 dark:text-red-400" />
             </div>
             Account Actions
           </CardTitle>
           <CardDescription>Manage your account session</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center justify-between p-4 border-2 border-destructive/30 rounded-xl bg-red-50/50">
+          <div className="flex items-center justify-between p-4 border-2 border-destructive/30 dark:border-destructive/40 rounded-xl bg-red-50/50 dark:bg-red-950/20">
             <div>
               <div className="text-sm font-semibold">Sign Out</div>
               <div className="text-xs text-muted-foreground">End your current session and return to login</div>

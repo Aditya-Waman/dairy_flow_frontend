@@ -349,108 +349,108 @@ export default function AdminDashboard() {
       </div>
 
       <section className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-        <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-green-50 to-white hover-lift animate-scale-in">
+        <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-green-50 to-background dark:from-green-950/20 dark:to-background hover-lift animate-scale-in">
           <CardHeader className="pb-2 pt-3 px-3">
-            <div className="flex items-center gap-1.5 text-xs font-medium text-green-600 mb-2">
-              <div className="p-1.5 rounded-md bg-green-100 transition-smooth">
+            <div className="flex items-center gap-1.5 text-xs font-medium text-green-600 dark:text-green-400 mb-2">
+              <div className="p-1.5 rounded-md bg-green-100 dark:bg-green-900/50 transition-smooth">
                 <Users className="size-3" />
               </div>
               Active Farmers
             </div>
-            <CardTitle className="text-2xl font-bold text-gray-900 mt-1">{farmers.filter(f=>f.status==="Active").length}</CardTitle>
-            <p className="text-xs text-gray-500 mt-1">Currently active</p>
+            <CardTitle className="text-2xl font-bold text-foreground mt-1">{farmers.filter(f=>f.status==="Active").length}</CardTitle>
+            <p className="text-xs text-muted-foreground mt-1">Currently active</p>
           </CardHeader>
         </Card>
-        <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-gray-50 to-white hover-lift animate-scale-in" style={{animationDelay: '0.1s'}}>
+        <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-secondary to-background dark:from-secondary/30 dark:to-background hover-lift animate-scale-in" style={{animationDelay: '0.1s'}}>
           <CardHeader className="pb-2 pt-3 px-3">
-            <div className="flex items-center gap-1.5 text-xs font-medium text-gray-600 mb-2">
-              <div className="p-1.5 rounded-md bg-gray-100 transition-smooth">
+            <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground mb-2">
+              <div className="p-1.5 rounded-md bg-secondary dark:bg-secondary/50 transition-smooth">
                 <UserX className="size-3" />
               </div>
               Inactive Farmers
             </div>
-            <CardTitle className="text-2xl font-bold text-gray-900 mt-1">{farmers.filter(f=>f.status!=="Active").length}</CardTitle>
-            <p className="text-xs text-gray-500 mt-1">Suspended accounts</p>
+            <CardTitle className="text-2xl font-bold text-foreground mt-1">{farmers.filter(f=>f.status!=="Active").length}</CardTitle>
+            <p className="text-xs text-muted-foreground mt-1">Suspended accounts</p>
           </CardHeader>
         </Card>
-        <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-orange-50 to-white hover-lift animate-scale-in" style={{animationDelay: '0.2s'}}>
+        <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-orange-50 to-background dark:from-orange-950/20 dark:to-background hover-lift animate-scale-in" style={{animationDelay: '0.2s'}}>
           <CardHeader className="pb-2 pt-3 px-3">
-            <div className="flex items-center gap-1.5 text-xs font-medium text-orange-600 mb-2">
-              <div className="p-1.5 rounded-md bg-orange-100 transition-smooth">
+            <div className="flex items-center gap-1.5 text-xs font-medium text-orange-600 dark:text-orange-400 mb-2">
+              <div className="p-1.5 rounded-md bg-orange-100 dark:bg-orange-900/50 transition-smooth">
                 <Clock className="size-3" />
               </div>
               Pending Requests
             </div>
-            <CardTitle className="text-2xl font-bold text-gray-900 mt-1">{requests.filter(r=>r.status==="Pending").length}</CardTitle>
-            <p className="text-xs text-gray-500 mt-1">Awaiting approval</p>
+            <CardTitle className="text-2xl font-bold text-foreground mt-1">{requests.filter(r=>r.status==="Pending").length}</CardTitle>
+            <p className="text-xs text-muted-foreground mt-1">Awaiting approval</p>
           </CardHeader>
         </Card>
-        <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-blue-50 to-white hover-lift animate-scale-in" style={{animationDelay: '0.3s'}}>
+        <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-blue-50 to-background dark:from-blue-950/20 dark:to-background hover-lift animate-scale-in" style={{animationDelay: '0.3s'}}>
           <CardHeader className="pb-2 pt-3 px-3">
-            <div className="flex items-center gap-1.5 text-xs font-medium text-blue-600 mb-2">
-              <div className="p-1.5 rounded-md bg-blue-100 transition-smooth">
+            <div className="flex items-center gap-1.5 text-xs font-medium text-blue-600 dark:text-blue-400 mb-2">
+              <div className="p-1.5 rounded-md bg-blue-100 dark:bg-blue-900/50 transition-smooth">
                 <Package className="size-3" />
               </div>
               Stock Available
             </div>
-            <CardTitle className="text-2xl font-bold text-gray-900 mt-1">{stock.reduce((a,s)=>a+s.quantityBags,0)}</CardTitle>
-            <p className="text-xs text-gray-500 mt-1">Total bags in stock</p>
+            <CardTitle className="text-2xl font-bold text-foreground mt-1">{stock.reduce((a,s)=>a+s.quantityBags,0)}</CardTitle>
+            <p className="text-xs text-muted-foreground mt-1">Total bags in stock</p>
           </CardHeader>
         </Card>
-        <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-purple-50 to-white hover-lift animate-scale-in" style={{animationDelay: '0.4s'}}>
+        <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-purple-50 to-background dark:from-purple-950/20 dark:to-background hover-lift animate-scale-in" style={{animationDelay: '0.4s'}}>
           <CardHeader className="pb-2 pt-3 px-3">
-            <div className="flex items-center gap-1.5 text-xs font-medium text-purple-600 mb-2">
-              <div className="p-1.5 rounded-md bg-purple-100 transition-smooth">
+            <div className="flex items-center gap-1.5 text-xs font-medium text-purple-600 dark:text-purple-400 mb-2">
+              <div className="p-1.5 rounded-md bg-purple-100 dark:bg-purple-900/50 transition-smooth">
                 <Users className="size-3" />
               </div>
               Admins
             </div>
-            <CardTitle className="text-2xl font-bold text-gray-900 mt-1">{admins?.length || 0}</CardTitle>
-            <p className="text-xs text-gray-500 mt-1">System administrators</p>
+            <CardTitle className="text-2xl font-bold text-foreground mt-1">{admins?.length || 0}</CardTitle>
+            <p className="text-xs text-muted-foreground mt-1">System administrators</p>
           </CardHeader>
         </Card>
-        <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-emerald-50 to-white hover-lift animate-scale-in" style={{animationDelay: '0.5s'}}>
+        <Card className="border-0 shadow-md hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-emerald-50 to-background dark:from-emerald-950/20 dark:to-background hover-lift animate-scale-in" style={{animationDelay: '0.5s'}}>
           <CardHeader className="pb-2 pt-3 px-3">
-            <div className="flex items-center gap-1.5 text-xs font-medium text-emerald-600 mb-2">
-              <div className="p-1.5 rounded-md bg-emerald-100 transition-smooth">
+            <div className="flex items-center gap-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400 mb-2">
+              <div className="p-1.5 rounded-md bg-emerald-100 dark:bg-emerald-900/50 transition-smooth">
                 <Leaf className="size-3" />
               </div>
               Feed Types
             </div>
-            <CardTitle className="text-2xl font-bold text-gray-900 mt-1">{stock.length}</CardTitle>
-            <p className="text-xs text-gray-500 mt-1">Available feeds</p>
+            <CardTitle className="text-2xl font-bold text-foreground mt-1">{stock.length}</CardTitle>
+            <p className="text-xs text-muted-foreground mt-1">Available feeds</p>
           </CardHeader>
         </Card>
       </section>
 
       <section className="space-y-6">
-        <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-blue-50 via-white to-blue-50 hover-lift animate-slide-up">
+        <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-blue-50 via-card to-blue-50 dark:from-blue-950/20 dark:via-card dark:to-blue-950/20 hover-lift animate-slide-up">
           <CardHeader className="pb-4">
             <CardTitle className="flex items-center gap-3 text-xl">
-              <div className="p-3 rounded-xl bg-blue-100 transition-smooth">
-                <CalendarIcon className="size-6 text-blue-600" />
+              <div className="p-3 rounded-xl bg-blue-100 dark:bg-blue-900/50 transition-smooth">
+                <CalendarIcon className="size-6 text-blue-600 dark:text-blue-400" />
               </div>
               Today's Performance
             </CardTitle>
-            <CardDescription className="text-gray-600 font-medium">{new Date().toLocaleDateString()}</CardDescription>
+            <CardDescription className="font-medium">{new Date().toLocaleDateString()}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="flex justify-between items-center p-4 bg-white/70 rounded-xl border border-blue-100 hover:bg-white/90 transition-colors duration-200">
-                <span className="text-sm font-semibold text-gray-700">Bags Sold</span>
-                <span className="font-bold text-2xl text-blue-600">{todayTotals.qty}</span>
+              <div className="flex justify-between items-center p-4 bg-card/70 dark:bg-card/50 rounded-xl border border-blue-100 dark:border-blue-900 hover:bg-card transition-colors duration-200">
+                <span className="text-sm font-semibold text-card-foreground">Bags Sold</span>
+                <span className="font-bold text-2xl text-blue-600 dark:text-blue-400">{todayTotals.qty}</span>
               </div>
-              <div className="flex justify-between items-center p-4 bg-white/70 rounded-xl border border-green-100 hover:bg-white/90 transition-colors duration-200">
-                <span className="text-sm font-semibold text-gray-700">Revenue</span>
-                <span className="font-bold text-2xl text-green-600">₹{todayTotals.revenue.toLocaleString()}</span>
+              <div className="flex justify-between items-center p-4 bg-card/70 dark:bg-card/50 rounded-xl border border-green-100 dark:border-green-900 hover:bg-card transition-colors duration-200">
+                <span className="text-sm font-semibold text-card-foreground">Revenue</span>
+                <span className="font-bold text-2xl text-green-600 dark:text-green-400">₹{todayTotals.revenue.toLocaleString()}</span>
               </div>
-              <div className="flex justify-between items-center p-4 bg-white/70 rounded-xl border border-red-100 hover:bg-white/90 transition-colors duration-200">
-                <span className="text-sm font-semibold text-gray-700">Cost</span>
-                <span className="font-bold text-2xl text-red-600">₹{todayTotals.cost.toLocaleString()}</span>
+              <div className="flex justify-between items-center p-4 bg-card/70 dark:bg-card/50 rounded-xl border border-red-100 dark:border-red-900 hover:bg-card transition-colors duration-200">
+                <span className="text-sm font-semibold text-card-foreground">Cost</span>
+                <span className="font-bold text-2xl text-red-600 dark:text-red-400">₹{todayTotals.cost.toLocaleString()}</span>
               </div>
-              <div className="flex justify-between items-center p-5 bg-gradient-to-r from-blue-100 to-blue-50 rounded-xl border-2 border-blue-200">
-                <span className="text-lg font-bold text-gray-800">Net Profit</span>
-                <span className={`font-bold text-3xl ${todayProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+              <div className="flex justify-between items-center p-5 bg-gradient-to-r from-blue-100 to-blue-50 dark:from-blue-900/30 dark:to-blue-950/20 rounded-xl border-2 border-blue-200 dark:border-blue-800">
+                <span className="text-lg font-bold text-foreground">Net Profit</span>
+                <span className={`font-bold text-3xl ${todayProfit >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
                   ₹{todayProfit.toLocaleString()}
                 </span>
               </div>
@@ -458,15 +458,15 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-purple-50 via-white to-purple-50">
+        <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-purple-50 via-card to-purple-50 dark:from-purple-950/20 dark:via-card dark:to-purple-950/20">
           <CardHeader className="pb-4">
             <CardTitle className="flex items-center gap-3 text-xl">
-              <div className="p-3 rounded-xl bg-purple-100">
-                <FileText className="size-6 text-purple-600" />
+              <div className="p-3 rounded-xl bg-purple-100 dark:bg-purple-900/50">
+                <FileText className="size-6 text-purple-600 dark:text-purple-400" />
               </div>
               Summary (Selected Range)
             </CardTitle>
-            <CardDescription className="text-gray-600 font-medium">Select date range for detailed analysis</CardDescription>
+            <CardDescription className="font-medium">Select date range for detailed analysis</CardDescription>
             <div className="mt-6">
               <CompactDateRangePicker
                 startDate={startDate}
@@ -490,7 +490,7 @@ export default function AdminDashboard() {
               <Button 
                 variant="secondary" 
                 onClick={()=>window.print()}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors duration-200"
+                className="transition-colors duration-200"
               >
                 Export PDF
               </Button>
@@ -527,19 +527,19 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-green-50 via-white to-green-50">
+        <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-green-50 via-card to-green-50 dark:from-green-950/20 dark:via-card dark:to-green-950/20">
           <CardHeader className="pb-4">
             <CardTitle className="flex items-center gap-3 text-xl mb-4">
-              <div className="p-3 rounded-xl bg-green-100">
-                <Users className="size-6 text-green-600" />
+              <div className="p-3 rounded-xl bg-green-100 dark:bg-green-900/50">
+                <Users className="size-6 text-green-600 dark:text-green-400" />
               </div>
               Farmers
             </CardTitle>
-            <CardDescription className="text-gray-600 font-medium mb-4">Search, filter and manage farmer accounts</CardDescription>
+            <CardDescription className="font-medium mb-4">Search, filter and manage farmer accounts</CardDescription>
             <div className="flex gap-3">
-              <Input placeholder="Search by name / code / mobile" className="flex-1 h-11 border-gray-200 focus:border-green-500 focus:ring-green-500" />
+              <Input placeholder="Search by name / code / mobile" className="flex-1 h-11" />
               <Button 
-                className="bg-green-600 hover:bg-green-700 h-11 px-6 transition-all duration-200"
+                className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 h-11 px-6 transition-all duration-200"
                 onClick={() => navigate('/farmers')}
               >
                 Manage Farmers
@@ -560,11 +560,11 @@ export default function AdminDashboard() {
               </TableHeader>
               <TableBody>
                 {farmers.slice(0, 5).map((f) => (
-                  <TableRow key={f.id} className="hover:bg-green-50/50 transition-colors duration-200">
+                  <TableRow key={f.id} className="hover:bg-green-50/50 dark:hover:bg-green-950/20 transition-colors duration-200">
                     <TableCell className="font-semibold">{f.fullName}</TableCell>
                     <TableCell className="text-muted-foreground font-mono text-sm">{f.mobile}</TableCell>
                     <TableCell>
-                      <span className="inline-flex items-center px-2 py-1 rounded-md bg-blue-100 text-blue-700 font-mono text-xs font-bold">
+                      <span className="inline-flex items-center px-2 py-1 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-mono text-xs font-bold">
                         {f.code}
                       </span>
                     </TableCell>
@@ -572,8 +572,8 @@ export default function AdminDashboard() {
                     <TableCell>
                       <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${
                         f.status === "Active" 
-                          ? "bg-green-100 text-green-800 border-green-200" 
-                          : "bg-gray-100 text-gray-700 border-gray-200"
+                          ? "bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800" 
+                          : "bg-secondary text-secondary-foreground border-border"
                       }`}>
                         {f.status}
                       </span>
@@ -584,14 +584,14 @@ export default function AdminDashboard() {
                           size="sm" 
                           variant="outline"
                           onClick={() => navigate('/farmers')}
-                          className="hover:bg-blue-50 hover:border-blue-200 transition-colors duration-200"
+                          className="transition-colors duration-200"
                         >
                           View
                         </Button>
                         <Button 
                           size="sm"
                           onClick={() => navigate(`/requests?farmer=${encodeURIComponent(f.id)}`)}
-                          className="bg-green-600 hover:bg-green-700 transition-colors duration-200"
+                          className="bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 transition-colors duration-200"
                         >
                           Request Feed
                         </Button>
@@ -601,7 +601,7 @@ export default function AdminDashboard() {
                 ))}
                 {farmers.length === 0 && (
                   <TableRow>
-                    <TableCell colSpan={6} className="text-center py-8 text-gray-500">
+                    <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
                       No farmers found. <Button variant="link" onClick={() => navigate('/farmers')} className="p-0 h-auto">Add your first farmer</Button>
                     </TableCell>
                   </TableRow>
@@ -611,15 +611,15 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-blue-50 via-white to-blue-50">
+        <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-blue-50 via-card to-blue-50 dark:from-blue-950/20 dark:via-card dark:to-blue-950/20">
           <CardHeader className="pb-4">
             <CardTitle className="flex items-center gap-3 text-xl">
-              <div className="p-2 rounded-lg bg-blue-100">
-                <Package className="size-6 text-blue-600" />
+              <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/50">
+                <Package className="size-6 text-blue-600 dark:text-blue-400" />
               </div>
               Stock Summary
             </CardTitle>
-            <CardDescription className="text-gray-600 font-medium">Current stock levels and last update information</CardDescription>
+            <CardDescription className="font-medium">Current stock levels and last update information</CardDescription>
           </CardHeader>
           <CardContent>
             <Table>
@@ -639,27 +639,27 @@ export default function AdminDashboard() {
                   const isLow = s.quantityBags < 20;
                   const isMedium = s.quantityBags >= 20 && s.quantityBags < 50;
                   return (
-                    <TableRow key={s.id} className="hover:bg-blue-50/50 transition-colors duration-200">
+                    <TableRow key={s.id} className="hover:bg-blue-50/50 dark:hover:bg-blue-950/20 transition-colors duration-200">
                       <TableCell className="font-semibold">{s.name}</TableCell>
                       <TableCell>
-                        <span className="inline-flex items-center px-2 py-1 rounded-md bg-purple-100 text-purple-700 text-xs font-medium">
+                        <span className="inline-flex items-center px-2 py-1 rounded-md bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 text-xs font-medium">
                           {s.type}
                         </span>
                       </TableCell>
                       <TableCell className="text-right">
                         <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border ${
                           isLow
-                            ? "bg-red-100 text-red-800 border-red-200" 
+                            ? "bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 border-red-200 dark:border-red-800" 
                             : isMedium
-                            ? "bg-yellow-100 text-yellow-800 border-yellow-200"
-                            : "bg-green-100 text-green-800 border-green-200"
+                            ? "bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 border-yellow-200 dark:border-yellow-800"
+                            : "bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 border-green-200 dark:border-green-800"
                         }`}>
                           {s.quantityBags} bags
                         </span>
                       </TableCell>
                       <TableCell className="text-right font-medium text-primary">{totalWeight} tons</TableCell>
                       <TableCell>
-                        <span className="inline-flex items-center px-2 py-1 rounded-md bg-blue-100 text-blue-700 text-xs font-medium">
+                        <span className="inline-flex items-center px-2 py-1 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-medium">
                           {s.updatedBy || 'System'}
                         </span>
                       </TableCell>
@@ -677,7 +677,7 @@ export default function AdminDashboard() {
                 })}
                 {stock.length === 0 && (
                   <TableRow>
-                    <TableCell colSpan={6} className="text-center py-8 text-gray-500">
+                    <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
                       No stock items found. <Button variant="link" onClick={() => navigate('/stock')} className="p-0 h-auto">Add stock items</Button>
                     </TableCell>
                   </TableRow>
@@ -687,15 +687,15 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+        <Card className="border-0 shadow-xl hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-indigo-50 via-card to-purple-50 dark:from-indigo-950/20 dark:via-card dark:to-purple-950/20">
           <CardHeader className="pb-4">
             <CardTitle className="flex items-center gap-3 text-xl">
-              <div className="p-3 rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100">
-                <FileText className="size-6 text-indigo-600" />
+              <div className="p-3 rounded-xl bg-gradient-to-br from-indigo-100 to-purple-100 dark:from-indigo-900/50 dark:to-purple-900/50">
+                <FileText className="size-6 text-indigo-600 dark:text-indigo-400" />
               </div>
               Farmer-wise Feed Request Report
             </CardTitle>
-            <CardDescription className="text-gray-600 font-medium">Detailed feed request history without profit calculations</CardDescription>
+            <CardDescription className="font-medium">Detailed feed request history without profit calculations</CardDescription>
             <div className="mt-6">
               <CompactDateRangePicker
                 startDate={startDate}
@@ -731,12 +731,12 @@ export default function AdminDashboard() {
                 });
 
                 return Object.values(farmerMap).map((farmerData) => (
-                  <Card key={farmerData.farmer.id} className="border-l-4 border-l-indigo-500 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-r from-white to-indigo-50/30">
-                    <CardHeader className="pb-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-t-lg">
+                  <Card key={farmerData.farmer.id} className="border-l-4 border-l-indigo-500 dark:border-l-indigo-400 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-r from-card to-indigo-50/30 dark:from-card dark:to-indigo-950/20">
+                    <CardHeader className="pb-3 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30 rounded-t-lg">
                       <div className="flex items-center justify-between">
                         <div>
-                          <CardTitle className="text-lg font-bold text-indigo-800">{farmerData.farmer.fullName}</CardTitle>
-                          <CardDescription className="text-sm mt-1 text-indigo-600 font-medium">Dairy Code: {farmerData.farmer.code}</CardDescription>
+                          <CardTitle className="text-lg font-bold text-indigo-800 dark:text-indigo-300">{farmerData.farmer.fullName}</CardTitle>
+                          <CardDescription className="text-sm mt-1 text-indigo-600 dark:text-indigo-400 font-medium">Dairy Code: {farmerData.farmer.code}</CardDescription>
                         </div>
                         <Button
                           variant="outline"
@@ -753,13 +753,13 @@ export default function AdminDashboard() {
                       <div className="overflow-x-auto">
                         <Table className="min-w-full">
                           <TableHeader>
-                            <TableRow className="bg-gradient-to-r from-indigo-100 to-purple-100">
-                              <TableHead className="font-semibold text-indigo-800">Feed Name</TableHead>
-                              <TableHead className="font-semibold text-indigo-800 text-center">Quantity</TableHead>
-                              <TableHead className="font-semibold text-indigo-800 text-center">Feed Rate</TableHead>
-                              <TableHead className="font-semibold text-indigo-800 text-center">Total Bill</TableHead>
-                              <TableHead className="font-semibold text-indigo-800 text-center">Approved Date & Time</TableHead>
-                              <TableHead className="font-semibold text-indigo-800 text-center">Approved By</TableHead>
+                            <TableRow className="bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30">
+                              <TableHead className="font-semibold text-indigo-800 dark:text-indigo-300">Feed Name</TableHead>
+                              <TableHead className="font-semibold text-indigo-800 dark:text-indigo-300 text-center">Quantity</TableHead>
+                              <TableHead className="font-semibold text-indigo-800 dark:text-indigo-300 text-center">Feed Rate</TableHead>
+                              <TableHead className="font-semibold text-indigo-800 dark:text-indigo-300 text-center">Total Bill</TableHead>
+                              <TableHead className="font-semibold text-indigo-800 dark:text-indigo-300 text-center">Approved Date & Time</TableHead>
+                              <TableHead className="font-semibold text-indigo-800 dark:text-indigo-300 text-center">Approved By</TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
@@ -767,41 +767,41 @@ export default function AdminDashboard() {
                               const s = typeof r.feedId === 'object' ? r.feedId : stock.find((x) => x.id === r.feedId);
                               // Use historical prices for approved requests
                               const sellingPrice = r.sellingPriceAtApproval || s?.sellingPrice || 0;
-                              return (
-                                <TableRow key={r.id} className={`hover:bg-indigo-50/50 transition-colors duration-200 ${index % 2 === 0 ? 'bg-white' : 'bg-indigo-25/30'}`}>
-                                  <TableCell className="font-semibold text-gray-800">
+                                return (
+                                <TableRow key={r.id} className={`hover:bg-indigo-50/50 dark:hover:bg-indigo-950/20 transition-colors duration-200 ${index % 2 === 0 ? 'bg-card' : 'bg-indigo-50/20 dark:bg-indigo-950/10'}`}>
+                                  <TableCell className="font-semibold text-foreground">
                                     <div className="flex items-center gap-2">
-                                      <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
+                                      <div className="w-2 h-2 rounded-full bg-indigo-500 dark:bg-indigo-400"></div>
                                       {s?.name || 'Unknown Feed'}
                                     </div>
                                   </TableCell>
                                   <TableCell className="text-center">
-                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-blue-100 text-blue-800">
+                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300">
                                       {r.qtyBags} bags
                                     </span>
                                   </TableCell>
                                   <TableCell className="text-center">
-                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800">
+                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300">
                                       ₹{sellingPrice}/bag
                                     </span>
                                   </TableCell>
                                   <TableCell className="text-center">
-                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 text-yellow-800">
+                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300">
                                       ₹{(sellingPrice * r.qtyBags).toLocaleString()}
                                     </span>
                                   </TableCell>
                                   <TableCell className="text-center">
                                     <div className="space-y-1">
-                                      <div className="text-sm font-medium text-gray-700">
+                                      <div className="text-sm font-medium text-foreground">
                                         {r.approvedAt ? new Date(r.approvedAt).toLocaleDateString('en-IN') : 'N/A'}
                                       </div>
-                                      <div className="text-xs text-gray-500">
+                                      <div className="text-xs text-muted-foreground">
                                         {r.approvedAt ? new Date(r.approvedAt).toLocaleTimeString('en-IN') : 'N/A'}
                                       </div>
                                     </div>
                                   </TableCell>
                                   <TableCell className="text-center">
-                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-purple-100 text-purple-800">
+                                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300">
                                       {r.approvedBy || 'System'}
                                     </span>
                                   </TableCell>
