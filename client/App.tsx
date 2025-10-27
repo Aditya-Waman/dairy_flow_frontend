@@ -13,6 +13,7 @@ import Farmers from "./pages/Farmers";
 import Stock from "./pages/Stock";
 import Requests from "./pages/Requests";
 import Reports from "./pages/Reports";
+import AllFarmersTotal from "./pages/AllFarmersTotal";
 import Admins from "./pages/Admins";
 import Settings from "./pages/Settings";
 import SignIn from "./pages/SignIn";
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
           { path: "/stock", element: <Stock /> },
           { path: "/requests", element: <Requests /> },
           { path: "/reports", element: <Reports /> },
+          { path: "/all-farmers-total", element: <AllFarmersTotal /> },
           { path: "/admins", element: <Admins /> },
           { path: "/settings", element: <Settings /> },
         ],

@@ -30,6 +30,7 @@ import {
   LayoutDashboard,
   Settings,
   Users2,
+  Calculator,
 } from "lucide-react";
 import { ReactNode } from "react";
 
@@ -107,6 +108,7 @@ export default function AppLayout() {
                 <NavItem to="/stock" icon={Boxes}>Stock</NavItem>
                 <NavItem to="/requests" icon={ClipboardList}>Feed Requests {pendingCount>0 && <span className="ml-2 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-xs text-primary-foreground">{pendingCount}</span>}</NavItem>
                 <NavItem to="/reports" icon={BarChart3}>Reports</NavItem>
+                <NavItem to="/all-farmers-total" icon={Calculator}>All Farmers Total</NavItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>

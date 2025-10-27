@@ -1,7 +1,7 @@
 // API utility functions for communicating with the backend
 import { useAuth } from '@/context/AuthContext';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://dairy-flow-backend-postgres.onrender.com';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://dairy-flow-backend-postgres.onrender.com/';
 
 export interface ApiResponse<T = any> {
   success: boolean;
@@ -383,5 +383,18 @@ export const reportApi = {
     }
     const queryString = searchParams.toString();
     return api.get<ApiResponse<any>>(`/api/reports/feed-stock${queryString ? `?${queryString}` : ''}`);
+  },
+
+  getAllFarmersTotal: (params?: { startDate?: string; endDate?: string }) => {
+    const searchParams = new URLSearchParams();
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined) {
+          searchParams.append(key, value.toString());
+        }
+      });
+    }
+    const queryString = searchParams.toString();
+    return api.get<ApiResponse<any>>(`/api/reports/all-farmers-total${queryString ? `?${queryString}` : ''}`);
   },
 };
