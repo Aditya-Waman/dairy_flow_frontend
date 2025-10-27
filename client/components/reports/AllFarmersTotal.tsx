@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { CompactDateRangePicker } from "@/components/ui/compact-date-picker";
 import { Download, Users, TrendingUp, Calculator, AlertCircle } from "lucide-react";
 import { reportApi } from "@/lib/api";
+import { getDefaultDateRange } from "@/utils/dateRangeHelper";
 
 interface FarmerTotalData {
   serialNumber: number;
@@ -27,8 +28,10 @@ interface AllFarmersTotalResponse {
 }
 
 export default function AllFarmersTotal() {
-  const [startDate, setStartDate] = useState<Date | undefined>(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
-  const [endDate, setEndDate] = useState<Date | undefined>(new Date());
+  // Use automatic date range selection based on current date
+  const defaultRange = getDefaultDateRange();
+  const [startDate, setStartDate] = useState<Date | undefined>(defaultRange.startDate);
+  const [endDate, setEndDate] = useState<Date | undefined>(defaultRange.endDate);
   const [loading, setLoading] = useState(false);
   const [reportData, setReportData] = useState<AllFarmersTotalResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -388,8 +391,9 @@ export default function AllFarmersTotal() {
             <Button 
               variant="outline" 
               onClick={() => {
-                setStartDate(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
-                setEndDate(new Date());
+                const resetRange = getDefaultDateRange();
+                setStartDate(resetRange.startDate);
+                setEndDate(resetRange.endDate);
                 setReportData(null);
                 setError(null);
               }} 

@@ -6,15 +6,18 @@ import { useData } from "@/context/DataContext";
 import { useAuth } from "@/context/AuthContext";
 import { CompactDateRangePicker } from "@/components/ui/compact-date-picker";
 import { Download, FileText, TrendingUp, Users, Package } from "lucide-react";
+import { getDefaultDateRange } from "@/utils/dateRangeHelper";
 
 export default function Reports() {
   const { farmers, stock, requests, admins } = useData() as any;
   const { user } = useAuth();
   const [farmerId, setFarmerId] = useState<string>("");
   const [adminId, setAdminId] = useState<string>("");
-  const month = new Date();
-  const [startDate, setStartDate] = useState<Date | undefined>(new Date(month.getFullYear(), month.getMonth(), 1));
-  const [endDate, setEndDate] = useState<Date | undefined>(new Date());
+  
+  // Use automatic date range selection based on current date
+  const defaultRange = getDefaultDateRange();
+  const [startDate, setStartDate] = useState<Date | undefined>(defaultRange.startDate);
+  const [endDate, setEndDate] = useState<Date | undefined>(defaultRange.endDate);
   const from = startDate ? new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), 0, 0, 0, 0) : undefined;
   const to = endDate ? new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(), 23, 59, 59, 999) : undefined;
   const rangeLabel = from && to ? `${from.toLocaleDateString()} – ${to.toLocaleDateString()}` : from ? `${from.toLocaleDateString()}` : "All";
@@ -454,8 +457,9 @@ export default function Reports() {
             <Button variant="outline" onClick={() => {
               setFarmerId("");
               setAdminId("");
-              setStartDate(new Date(month.getFullYear(), month.getMonth(), 1));
-              setEndDate(new Date());
+              const resetRange = getDefaultDateRange();
+              setStartDate(resetRange.startDate);
+              setEndDate(resetRange.endDate);
             }} className="gap-2 shrink-0">
               Clear Filters
             </Button>

@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { CompactDateRangePicker } from "@/components/ui/compact-date-picker";
 import { useData } from "@/context/DataContext";
 import { useToast } from "@/hooks/use-toast";
 import { useSearchParams } from "react-router-dom";
+import { getDefaultDateRange } from "@/utils/dateRangeHelper";
 
 export default function Requests() {
   const { farmers, stock, requests, createRequest, approveRequest, rejectRequest } = useData();
@@ -17,9 +19,35 @@ export default function Requests() {
   const [farmerId, setFarmerId] = useState(preselectFarmer);
   const [feedId, setFeedId] = useState("");
   const [qty, setQty] = useState(1);
+  
+  // Use automatic date range selection for Recent Activity filter
+  const defaultRange = getDefaultDateRange();
+  const [startDate, setStartDate] = useState<Date | undefined>(defaultRange.startDate);
+  const [endDate, setEndDate] = useState<Date | undefined>(defaultRange.endDate);
 
   const selectedFeed = useMemo(() => stock.find((s) => s.id === feedId), [stock, feedId]);
   const price = selectedFeed ? qty * selectedFeed.sellingPrice : 0;
+
+  // Filter recent activity based on date range
+  const filteredRecentActivity = useMemo(() => {
+    const from = startDate ? new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), 0, 0, 0, 0) : undefined;
+    const to = endDate ? new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(), 23, 59, 59, 999) : undefined;
+    
+    return requests.filter(r => {
+      if (r.status === "Pending") return false;
+      
+      // Filter by date range
+      if (from || to) {
+        const requestDate = r.approvedAt ? new Date(r.approvedAt) : r.createdAt ? new Date(r.createdAt) : null;
+        if (requestDate) {
+          if (from && requestDate < from) return false;
+          if (to && requestDate > to) return false;
+        }
+      }
+      
+      return true;
+    }).slice(0, 10);
+  }, [requests, startDate, endDate]);
 
   async function onCreate(e: React.FormEvent) {
     e.preventDefault();
@@ -212,10 +240,36 @@ export default function Requests() {
               Recent Activity
             </CardTitle>
             <CardDescription>Latest approvals and rejections with complete details</CardDescription>
+            
+            {/* Date Range Filter for Recent Activity */}
+            <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center mt-4 pt-4 border-t border-border">
+              <div className="flex-1 w-full">
+                <CompactDateRangePicker
+                  startDate={startDate}
+                  endDate={endDate}
+                  onStartDateChange={setStartDate}
+                  onEndDateChange={setEndDate}
+                  startPlaceholder="From"
+                  endPlaceholder="To"
+                />
+              </div>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => {
+                  const resetRange = getDefaultDateRange();
+                  setStartDate(resetRange.startDate);
+                  setEndDate(resetRange.endDate);
+                }} 
+                className="gap-2 shrink-0"
+              >
+                Reset Dates
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {requests.filter(r=>r.status!=="Pending").slice(0,10).map((r)=>{
+              {filteredRecentActivity.map((r)=>{
                 // Use populated data directly from the request
                 const f = typeof r.farmerId === 'object' ? r.farmerId : null; // This is already populated with farmer data
                 const s = typeof r.feedId === 'object' ? r.feedId : null;   // This is already populated with stock data
@@ -304,10 +358,10 @@ export default function Requests() {
                   </div>
                 );
               })}
-              {requests.filter(r=>r.status!=="Pending").length === 0 && (
+              {filteredRecentActivity.length === 0 && (
                 <div className="text-center py-8 text-gray-500 dark:text-gray-400">
                   <div className="text-4xl mb-2">📋</div>
-                  <p>No recent activity to display</p>
+                  <p>No recent activity to display for the selected date range</p>
                 </div>
               )}
             </div>

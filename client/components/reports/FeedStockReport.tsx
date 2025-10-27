@@ -6,6 +6,7 @@ import { CompactDateRangePicker } from "@/components/ui/compact-date-picker";
 import { Download, Package, TrendingUp, AlertTriangle, CheckCircle } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { reportApi } from "@/lib/api";
+import { getDefaultDateRange } from "@/utils/dateRangeHelper";
 
 interface FeedStockData {
   feedId: number;
@@ -40,8 +41,11 @@ interface FeedStockReportResponse {
 
 export default function FeedStockReport() {
   const { user } = useAuth();
-  const [startDate, setStartDate] = useState<Date | undefined>(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
-  const [endDate, setEndDate] = useState<Date | undefined>(new Date());
+  
+  // Use automatic date range selection based on current date
+  const defaultRange = getDefaultDateRange();
+  const [startDate, setStartDate] = useState<Date | undefined>(defaultRange.startDate);
+  const [endDate, setEndDate] = useState<Date | undefined>(defaultRange.endDate);
   const [loading, setLoading] = useState(false);
   const [reportData, setReportData] = useState<FeedStockReportResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -414,8 +418,9 @@ export default function FeedStockReport() {
             <Button 
               variant="outline" 
               onClick={() => {
-                setStartDate(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
-                setEndDate(new Date());
+                const resetRange = getDefaultDateRange();
+                setStartDate(resetRange.startDate);
+                setEndDate(resetRange.endDate);
                 setReportData(null);
                 setError(null);
               }} 
